@@ -1,5 +1,4 @@
-configs
-=======
+# Configs
 
 My configuration files
 
