@@ -32,3 +32,9 @@ we can use:
 ```
 
 ...where `<tab>` means <kbd>TAB</kbd> key press.
+
+NodeJS Validator:
+
+```
+node /j<tab>j<tab> test.json
+```
