@@ -15,4 +15,3 @@ cp .vim* ~/
 echo "Finished. Clean up..."
 cd ..
 rm -rf configs
-rm installer.sh
