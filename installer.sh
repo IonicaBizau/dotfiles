@@ -10,7 +10,7 @@ echo "Copying Johnny's apps"
 sudo cp -r johnnysapps /
 
 echo "Copying VIM files."
-cp .vim* ~/
+cp vim-files/.vim* ~/
 
 echo "Finished. Clean up..."
 cd ..
