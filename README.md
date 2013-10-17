@@ -2,6 +2,12 @@
 
 My configuration files
 
+## Installer
+
+```
+wget -qO- https://raw.github.com/IonicaBizau/configs/master/installer.sh | sh
+```
+
 ## VIM files
 
  - `.vimrc`
@@ -37,4 +43,13 @@ NodeJS JSON Validator:
 
 ```
 node /j<tab>j<tab> test.json
+```
+
+
+## Applications
+
+### Qt
+
+```
+wget -qO- https://raw.github.com/IonicaBizau/configs/master/utils/qt.sh | sh
 ```
