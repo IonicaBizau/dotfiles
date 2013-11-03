@@ -4,41 +4,6 @@
 "+ Thanks! http://stackoverflow.com/a/171558/1420197     +"
 "+-------------------------------------------------------+"
 
-"{{{Auto Commands
-
-" Automatically cd into the directory that the file is in
-autocmd BufEnter * execute "chdir ".escape(expand("%:p:h"), ' ')
-
-" Remove any trailing whitespace that is in the file
-autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
-
-" Restore cursor position to where it was before
-augroup JumpCursorOnEdit
-   au!
-   autocmd BufReadPost *
-            \ if expand("<afile>:p:h") !=? $TEMP |
-            \   if line("'\"") > 1 && line("'\"") <= line("$") |
-            \     let JumpCursorOnEdit_foo = line("'\"") |
-            \     let b:doopenfold = 1 |
-            \     if (foldlevel(JumpCursorOnEdit_foo) > foldlevel(JumpCursorOnEdit_foo - 1)) |
-            \        let JumpCursorOnEdit_foo = JumpCursorOnEdit_foo - 1 |
-            \        let b:doopenfold = 2 |
-            \     endif |
-            \     exe JumpCursorOnEdit_foo |
-            \   endif |
-            \ endif
-   " Need to postpone using "zv" until after reading the modelines.
-   autocmd BufWinEnter *
-            \ if exists("b:doopenfold") |
-            \   exe "normal zv" |
-            \   if(b:doopenfold > 1) |
-            \       exe  "+".1 |
-            \   endif |
-            \   unlet b:doopenfold |
-            \ endif
-augroup END
-
-"}}}
 
 "{{{Misc Settings
 
@@ -127,7 +92,7 @@ if has("gui_running")
    "Terminus is AWESOME
    set guifont=Terminus\ 9
 else
-   colorscheme metacosm
+   "colorscheme metacosm
 endif
 
 "Status line gnarliness
@@ -297,3 +262,36 @@ syntax on
 
 set background=light
 set nowrap
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+" let Vundle manage Vundle
+" required!
+Bundle 'gmarik/vundle'
+
+" My Bundles here:
+"
+" original repos on github
+Bundle 'tpope/vim-fugitive'
+Bundle 'Lokaltog/vim-easymotion'
+Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
+Bundle 'tpope/vim-rails.git'
+Bundle 'mattn/emmet-vim.git'
+Bundle 'Valloric/YouCompleteMe.git'
+Bundle "MarcWeber/vim-addon-mw-utils"
+Bundle "tomtom/tlib_vim"
+Bundle "garbas/vim-snipmate"
+Bundle "honza/vim-snippets"
+" ...
+
+filetype plugin indent on     " required!
+"
+" Brief help
+" :BundleList          - list configured bundles
+" :BundleInstall(!)    - install(update) bundles
+" :BundleSearch(!) foo - search(or refresh cache first) for foo
+" :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
+"
+" see :h vundle for more details or wiki for FAQ
+" NOTE: comments after Bundle command are not allowed..
