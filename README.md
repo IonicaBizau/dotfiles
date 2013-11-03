@@ -53,3 +53,9 @@ node /j<tab>j<tab> test.json
 ```
 wget -qO- https://raw.github.com/IonicaBizau/configs/master/utils/qt.sh | sh
 ```
+
+### Get VIM
+
+```
+wget -qO- https://raw.github.com/IonicaBizau/configs/master/utils/get-vim.sh | sh
+```
