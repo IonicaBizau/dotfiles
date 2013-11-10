@@ -273,16 +273,11 @@ Bundle 'gmarik/vundle'
 " My Bundles here:
 "
 " original repos on github
-Bundle 'tpope/vim-fugitive'
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
-Bundle 'tpope/vim-rails.git'
-Bundle 'mattn/emmet-vim.git'
-Bundle 'Valloric/YouCompleteMe.git'
-Bundle "MarcWeber/vim-addon-mw-utils"
-Bundle "tomtom/tlib_vim"
-Bundle "garbas/vim-snipmate"
-Bundle "honza/vim-snippets"
+Bundle "mattn/emmet-vim.git"
+Bundle "scrooloose/nerdtree"
+Bundle "Shougo/neocomplcache.vim"
+let g:neocomplcache_enable_at_startup = 1
+Bundle 'Shougo/neosnippet.vim'
 " ...
 
 filetype plugin indent on     " required!
