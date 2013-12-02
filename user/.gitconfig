@@ -1,0 +1,7 @@
+[user]
+	name = Ionică Bizău
+	email = bizauionica@yahoo.com
+[color]
+	ui = true
+[push]
+	default = matching

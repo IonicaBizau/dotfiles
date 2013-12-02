@@ -105,3 +105,12 @@ fi
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
+
+### Git Setup
+export GIT_AUTHOR_NAME="Ionică Bizău"
+export GIT_AUTHOR_EMAIL=bizauionica@yahoo.com
+export GIT_COMMITTER_NAME="Ionică  Bizău"
+export GIT_COMMITTER_EMAIL="bizauionica@yahoo.com"
+
+### Prompt style
+export PS1="\033[0;33m\h:\W \u\$ \e[m"
