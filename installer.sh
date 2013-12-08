@@ -15,6 +15,9 @@ cp -r vim-files/.vim* ~/
 echo "Installing Vundle ..."
 git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 
+echo "Installing VIM plugins ..."
+vim +BundleInstall +qall
+
 echo "Finished. Clean up ..."
 cd ..
 rm -rf configs
