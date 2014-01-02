@@ -67,6 +67,12 @@ wget -qO- https://raw.github.com/IonicaBizau/configs/master/utils/get-vim.sh | s
 wget -qO- https://raw.github.com/IonicaBizau/configs/master/utils/install-node-and-mongo.sh | sh
 ```
 
+For Node only:
+
+```
+wget -qO- https://raw.github.com/IonicaBizau/configs/master/utils/install-node.sh | sh
+```
+
 
 ### Banish404
 
