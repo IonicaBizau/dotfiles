@@ -59,3 +59,10 @@ wget -qO- https://raw.github.com/IonicaBizau/configs/master/utils/qt.sh | sh
 ```
 wget -qO- https://raw.github.com/IonicaBizau/configs/master/utils/get-vim.sh | sh
 ```
+
+
+### Node and Mongo
+
+```
+wget -qO- https://raw.github.com/IonicaBizau/configs/master/utils/install-node-and-mongo.sh | sh
+```
