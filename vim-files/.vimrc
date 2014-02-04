@@ -280,6 +280,9 @@ let g:neocomplcache_enable_at_startup = 1
 Bundle 'Shougo/neosnippet.vim'
 " ...
 
+" Delete unwanted spaces
+autocmd BufWritePre * :%s/\s\+$//e
+
 filetype plugin indent on     " required!
 "
 " Brief help
