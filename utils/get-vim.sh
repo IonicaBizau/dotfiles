@@ -7,6 +7,7 @@ libcairo2-dev libx11-dev libxpm-dev libxt-dev python-dev ruby-dev mercurial
 
 sudo apt-get remove vim vim-runtime gvim
 sudo apt-get remove vim-tiny vim-common vim-gui-common
+rm -rf .vim
 
 cd ~
 hg clone https://code.google.com/p/vim/
