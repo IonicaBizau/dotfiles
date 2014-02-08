@@ -1,5 +1,8 @@
 echo "~ ~ ~ Installing config files ~ ~ ~"
 
+echo "Installing git ..."
+sudo apt-get install git -y
+
 echo "Clonning the repository ..."
 git clone https://github.com/IonicaBizau/configs
 
