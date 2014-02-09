@@ -278,6 +278,7 @@ Bundle "scrooloose/nerdtree"
 Bundle "Shougo/neocomplcache.vim"
 let g:neocomplcache_enable_at_startup = 1
 Bundle 'Shougo/neosnippet.vim'
+Bundle 'lrvick/Conque-Shell'
 " ...
 
 " Delete unwanted spaces
