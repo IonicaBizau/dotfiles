@@ -3,6 +3,15 @@ echo "~ ~ ~ Installing config files ~ ~ ~"
 echo "Installing git ..."
 sudo apt-get install git -y
 
+echo "Installing curl ..."
+sudo apt-get install curl -y
+
+echo "Installing Java ..."
+sudo add-apt-repository ppa:webupd8team/java -y
+sudo apt-get update
+sudo apt-get install oracle-java7-installer -y
+
+
 echo "Clonning the repository ..."
 git clone https://github.com/IonicaBizau/configs
 
