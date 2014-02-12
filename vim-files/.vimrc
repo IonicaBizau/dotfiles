@@ -280,6 +280,13 @@ let g:neocomplcache_enable_at_startup = 1
 Bundle 'Shougo/neosnippet.vim'
 Bundle 'Shougo/neosnippet-snippets'
 Bundle 'lrvick/Conque-Shell'
+
+Bundle "MarcWeber/vim-addon-mw-utils"
+Bundle "tomtom/tlib_vim"
+Bundle "garbas/vim-snipmate"
+
+" Optional:
+Bundle "honza/vim-snippets"
 " ...
 
 " Delete unwanted spaces
