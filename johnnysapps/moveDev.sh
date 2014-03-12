@@ -9,4 +9,4 @@
 echo "> Move dev."
 git tag  -d dev
 git tag     dev
-git push --tags
+git push --tags -f
