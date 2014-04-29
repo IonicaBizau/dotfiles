@@ -145,6 +145,12 @@ func! Paste_on_off()
    endif
    return
 endfunc
+
+func! OpenTerminal()
+   tabnew
+   ConqueTerm bash
+   return
+endfunc
 "}}}
 
 "{{{ Todo List Mode
@@ -197,6 +203,7 @@ nnoremap <silent> <F9> :%s/$//g<CR>:%s// /g<CR>
 
 " Paste Mode!  Dang! <F10>
 nnoremap <silent> <F10> :call Paste_on_off()<CR>
+nnoremap <silent> <F12> :call OpenTerminal()<CR>
 set pastetoggle=<F10>
 
 " Edit vimrc \ev
