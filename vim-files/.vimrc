@@ -198,12 +198,10 @@ nnoremap <silent> <C-t> :tabnew<CR>
 " Rotate Color Scheme <F8>
 nnoremap <silent> <F8> :execute RotateColorTheme()<CR>
 
-" DOS is for fools.
-nnoremap <silent> <F9> :%s/$//g<CR>:%s// /g<CR>
-
 " Paste Mode!  Dang! <F10>
 nnoremap <silent> <F10> :call Paste_on_off()<CR>
 nnoremap <silent> <F12> :call OpenTerminal()<CR>
+nnoremap <silent> <F9> :JsDoc<CR>
 set pastetoggle=<F10>
 
 " Edit vimrc \ev
@@ -287,6 +285,7 @@ let g:neocomplcache_enable_at_startup = 1
 Bundle 'Shougo/neosnippet.vim'
 Bundle 'Shougo/neosnippet-snippets'
 Bundle 'lrvick/Conque-Shell'
+Bundle 'heavenshell/vim-jsdoc'
 
 Bundle "MarcWeber/vim-addon-mw-utils"
 Bundle "tomtom/tlib_vim"
