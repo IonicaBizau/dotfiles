@@ -102,33 +102,33 @@ $ sudo apt-get dist-upgrade
 ### Qt
 
 ```sh
-$ curl https://raw.github.com/IonicaBizau/configs/master/utils/qt.sh | sh
+$ curl https://raw.github.com/IonicaBizau/dotfiles/master/utils/qt.sh | sh
 ```
 
 ### Compile VIM
 
 ```sh
-$ curl https://raw.github.com/IonicaBizau/configs/master/utils/get-vim.sh | sh
+$ curl https://raw.github.com/IonicaBizau/dotfiles/master/utils/get-vim.sh | sh
 ```
 
 
 ### Node and Mongo
 
 ```sh
-$ curl https://raw.github.com/IonicaBizau/configs/master/utils/install-node-and-mongo.sh | sh
+$ curl https://raw.github.com/IonicaBizau/dotfiles/master/utils/install-node-and-mongo.sh | sh
 ```
 
 For Node only:
 
 ```sh
-$ curl https://raw.github.com/IonicaBizau/configs/master/utils/install-node.sh | sh
+$ curl https://raw.github.com/IonicaBizau/dotfiles/master/utils/install-node.sh | sh
 ```
 
 
 ### Banish404
 
 ```sh
-$ curl https://raw.github.com/IonicaBizau/configs/master/utils/install-banish404.sh | sh
+$ curl https://raw.github.com/IonicaBizau/dotfiles/master/utils/install-banish404.sh | sh
 ```
 
 ## License
