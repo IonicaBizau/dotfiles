@@ -11,10 +11,10 @@ if has('vim_starting')
   set nocompatible               " Be iMproved
 
   " Required:
-  set runtimepath+=/home/ionicabizau/.vim/bundle/neobundle.vim/
+  set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
-call neobundle#begin(expand('/home/ionicabizau/.vim/bundle'))
+call neobundle#begin(expand('~/.vim/bundle'))
 NeoBundleLazy 'The-NERD-tree', {'augroup' : 'NERDTree'}
 command! NERDTree :call NERDTree()
 function! NERDTree()
