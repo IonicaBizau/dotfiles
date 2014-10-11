@@ -3,6 +3,65 @@
 "+-------------------------------------------------------+"
 
 " ------------------------------"
+" Plugins
+" ------------------------------"
+
+"NeoBundle Scripts-----------------------------
+if has('vim_starting')
+  set nocompatible               " Be iMproved
+
+  " Required:
+  set runtimepath+=/home/ionicabizau/.vim/bundle/neobundle.vim/
+endif
+
+call neobundle#begin(expand('/home/ionicabizau/.vim/bundle'))
+NeoBundleLazy 'The-NERD-tree', {'augroup' : 'NERDTree'}
+command! NERDTree :call NERDTree()
+function! NERDTree()
+NeoBundleSource The-NERD-tree
+    NERDTree
+endfunction
+
+" Let NeoBundle manage NeoBundle
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+NeoBundle 'Shougo/neosnippet.vim'
+NeoBundle 'Shougo/neosnippet-snippets'
+NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'flazz/vim-colorschemes'
+NeoBundle "mattn/emmet-vim.git"
+NeoBundle "Shougo/neocomplcache.vim"
+
+let g:neocomplcache_enable_at_startup = 1
+
+NeoBundle 'Shougo/neosnippet.vim'
+NeoBundle 'Shougo/neosnippet-snippets'
+NeoBundle 'lrvick/Conque-Shell'
+NeoBundle 'heavenshell/vim-jsdoc'
+
+let g:jsdoc_allow_input_prompt = 1
+let g:jsdoc_additional_descriptions = 1
+let g:jsdoc_return_description = 1
+
+NeoBundle "MarcWeber/vim-addon-mw-utils"
+NeoBundle "tomtom/tlib_vim"
+NeoBundle "garbas/vim-snipmate"
+NeoBundle "honza/vim-snippets"
+NeoBundle "sheerun/vim-polyglot"
+NeoBundle 'junegunn/vim-emoji'
+NeoBundle 'maksimr/vim-jsbeautify'
+NeoBundle 'einars/js-beautify'
+NeoBundle 'tpope/vim-unimpaired'
+
+" Required:
+call neobundle#end()
+
+" If there are uninstalled bundles found on startup,
+" this will conveniently prompt you to install them.
+NeoBundleCheck
+"End NeoBundle Scripts-------------------------
+
+" ------------------------------"
 " Misc Settings
 " ------------------------------"
 
@@ -73,6 +132,10 @@ highlight MatchParen ctermbg=4
 " Status line gnarliness
 set laststatus=2
 set statusline=%F%m%r%h%w\ (%{&ff}){%Y}\ [%l,%v][%p%%]
+syntax on
+filetype plugin indent on
+set nowrap
+set incsearch
 
 " Paste
 let paste_mode = 0 " 0 = normal, 1 = paste
@@ -126,73 +189,6 @@ set pastetoggle=<F10>
 " Swap ; and :  Convenient.
 nnoremap ; :
 nnoremap : ;
-
-filetype plugin indent on
-syntax on
-
-set nowrap
-
-" ------------------------------"
-" Plugins
-" ------------------------------"
-
-"NeoBundle Scripts-----------------------------
-if has('vim_starting')
-  set nocompatible               " Be iMproved
-
-  " Required:
-  set runtimepath+=/home/ionicabizau/.vim/bundle/neobundle.vim/
-endif
-
-call neobundle#begin(expand('/home/ionicabizau/.vim/bundle'))
-NeoBundleLazy 'The-NERD-tree', {'augroup' : 'NERDTree'}
-command! NERDTree :call NERDTree()
-function! NERDTree()
-NeoBundleSource The-NERD-tree
-    NERDTree
-endfunction
-
-" Let NeoBundle manage NeoBundle
-NeoBundleFetch 'Shougo/neobundle.vim'
-
-NeoBundle 'Shougo/neosnippet.vim'
-NeoBundle 'Shougo/neosnippet-snippets'
-NeoBundle 'kien/ctrlp.vim'
-NeoBundle 'flazz/vim-colorschemes'
-NeoBundle "mattn/emmet-vim.git"
-NeoBundle "Shougo/neocomplcache.vim"
-
-let g:neocomplcache_enable_at_startup = 1
-
-NeoBundle 'Shougo/neosnippet.vim'
-NeoBundle 'Shougo/neosnippet-snippets'
-NeoBundle 'lrvick/Conque-Shell'
-NeoBundle 'heavenshell/vim-jsdoc'
-
-let g:jsdoc_allow_input_prompt = 1
-let g:jsdoc_additional_descriptions = 1
-let g:jsdoc_return_description = 1
-
-NeoBundle "MarcWeber/vim-addon-mw-utils"
-NeoBundle "tomtom/tlib_vim"
-NeoBundle "garbas/vim-snipmate"
-NeoBundle "honza/vim-snippets"
-NeoBundle "sheerun/vim-polyglot"
-NeoBundle 'junegunn/vim-emoji'
-NeoBundle 'maksimr/vim-jsbeautify'
-NeoBundle 'einars/js-beautify'
-NeoBundle 'tpope/vim-unimpaired'
-
-autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
-" ...
-
-" Required:
-call neobundle#end()
-
-" If there are uninstalled bundles found on startup,
-" this will conveniently prompt you to install them.
-NeoBundleCheck
-"End NeoBundle Scripts-------------------------
 
 " Delete unwanted spaces
 autocmd BufWritePre * :%s/\s\+$//e
