@@ -1,6 +1,46 @@
-"+-------------------------------------------------------+"
-"+ Follow me on Github :: https://github.com/IonicaBizau +"
-"+-------------------------------------------------------+"
+"                                      ##############..... ##############
+"  .___              .__               ##############......##############
+"  |   | ____   ____ |__| ____ _____     ##########..........##########
+"  |   |/  _ \ /    \|  |/ ___\\__  \    ##########........##########
+"  |   (  <_> )   |  \  \  \___ / __ \_  ##########.......##########
+"  |___|\____/|___|  /__|\___  >____  /  ##########.....##########..
+"                  \/        \/     \/   ##########....##########.....
+"  __________.__                       ..##########..##########.........
+"  \______   \__|____________   __ __ ...##########.#########.............
+"   |    |  _/  \___   /\__  \ |  |  \ ..################JJJ............
+"   |    |   \  |/    /  / __ \|  |  /   ################.............
+"   |______  /__/_____ \(____  /____/    ##############.JJJ.JJJJJJJJJJ
+"          \/         \/     \/          ############...JJ...JJ..JJ  JJ
+"                                        ##########....JJ...JJ..JJ  JJ
+"                                        ########......JJJ..JJJ JJJ JJJ
+"                                        ######    .........
+"                                                   .....
+" This is the personal .vimrc file of Ionică Bizău.   .
+"
+" While much of it is beneficial for general use, I would
+" recommend picking out the parts you want and understand.
+"
+" You can find me at https://github.com/IonicaBizau
+"
+" Copyright (C) 2014 Ionică Bizău
+"
+" Permission is hereby granted, free of charge, to any person obtaining
+" a copy of this software and associated documentation files (the "Software"),
+" to deal in the Software without restriction, including without limitation
+" the rights to use, copy, modify, merge, publish, distribute, sublicense,
+" and/or sell copies of the Software, and to permit persons to whom the
+" Software is furnished to do so, subject to the following conditions:
+"
+" The above copyright notice and this permission notice shall be included
+" in all copies or substantial portions of the Software.
+"
+" THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+" EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+" OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+" IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+" DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+" TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
+" OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 " ------------------------------"
 " Plugins
@@ -8,9 +48,7 @@
 
 "NeoBundle Scripts-----------------------------
 if has('vim_starting')
-  set nocompatible               " Be iMproved
-
-  " Required:
+  set nocompatible
   set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
@@ -53,11 +91,7 @@ NeoBundle 'maksimr/vim-jsbeautify'
 NeoBundle 'einars/js-beautify'
 NeoBundle 'tpope/vim-unimpaired'
 
-" Required:
 call neobundle#end()
-
-" If there are uninstalled bundles found on startup,
-" this will conveniently prompt you to install them.
 NeoBundleCheck
 "End NeoBundle Scripts-------------------------
 
@@ -65,7 +99,7 @@ NeoBundleCheck
 " Misc Settings
 " ------------------------------"
 
-" Necesary  for lots of cool vim things
+" Necesary for lots of cool vim things
 set nocompatible
 
 " This shows what you are typing as a command.  I love this!
@@ -166,7 +200,6 @@ function! TodoListMode()
    tabnew ~/.notes.txt
    tabfirst
 endfunction
-
 
 " ------------------------------"
 " Mappings
