@@ -130,3 +130,6 @@ $ curl https://raw.github.com/IonicaBizau/configs/master/utils/install-node.sh |
 ```sh
 $ curl https://raw.github.com/IonicaBizau/configs/master/utils/install-banish404.sh | sh
 ```
+
+## License
+See the [LICENSE](./LICENSE) file.
