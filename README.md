@@ -99,37 +99,36 @@ $ sudo apt-get dist-upgrade
 
 ## Applications
 
-### Qt
-
-```sh
-$ curl https://raw.github.com/IonicaBizau/dotfiles/master/utils/qt.sh | sh
-```
-
-### Compile VIM
-
-```sh
-$ curl https://raw.github.com/IonicaBizau/dotfiles/master/utils/get-vim.sh | sh
-```
-
-
-### Node and Mongo
-
-```sh
-$ curl https://raw.github.com/IonicaBizau/dotfiles/master/utils/install-node-and-mongo.sh | sh
-```
-
-For Node only:
-
-```sh
-$ curl https://raw.github.com/IonicaBizau/dotfiles/master/utils/install-node.sh | sh
-```
-
-
-### Banish404
-
-```sh
-$ curl https://raw.github.com/IonicaBizau/dotfiles/master/utils/install-banish404.sh | sh
-```
+<table>
+    <thead>
+        <tr>
+            <td>Application</td>
+            <td>Script</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Qt</td>
+            <td>curl https://raw.github.com/IonicaBizau/dotfiles/master/utils/qt.sh | sh</td>
+        </tr>
+        <tr>
+            <td>Compiles VIM</td>
+            <td>curl https://raw.github.com/IonicaBizau/dotfiles/master/utils/get-vim.sh | sh</td>
+        </tr>
+        <tr>
+            <td>Node & Mongo</td>
+            <td>curl https://raw.github.com/IonicaBizau/dotfiles/master/utils/node-and-mongo.sh | sh</td>
+        </tr>
+        <tr>
+            <td>Node</td>
+            <td>curl https://raw.github.com/IonicaBizau/dotfiles/master/utils/node.sh | sh</td>
+        </tr>
+        <tr>
+            <td>Banish404</td>
+            <td>curl https://raw.github.com/IonicaBizau/dotfiles/master/utils/install-banish404.sh | sh</td>
+        </tr>
+    </tbody>
+</table>
 
 ## License
 See the [LICENSE](./LICENSE) file.
