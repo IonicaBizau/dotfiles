@@ -15,4 +15,3 @@
     tree = log --graph --decorate --pretty=oneline --abbrev-commit
     count = rev-list HEAD --count
     clone-branches = "! git branch -a | sed -n \"/\\/HEAD /d; /\\/master$/d; /remotes/p;\" | xargs -L1 git checkout -t"
-
