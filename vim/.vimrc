@@ -265,7 +265,7 @@ syntax on
 set background=light
 set nowrap
 
-match ErrorMsg '\%>80v.\+'
+" match ErrorMsg '\%>80v.\+'
 
 "NeoBundle Scripts-----------------------------
 if has('vim_starting')
@@ -309,7 +309,6 @@ NeoBundle "tomtom/tlib_vim"
 NeoBundle "garbas/vim-snipmate"
 NeoBundle "honza/vim-snippets"
 NeoBundle "sheerun/vim-polyglot"
-NeoBundle "jaxbot/github-issues.vim"
 NeoBundle 'junegunn/vim-emoji'
 NeoBundle 'maksimr/vim-jsbeautify'
 NeoBundle 'einars/js-beautify'
