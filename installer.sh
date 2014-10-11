@@ -6,12 +6,6 @@ sudo apt-get install git -y
 echo "Installing curl ..."
 sudo apt-get install curl -y
 
-echo "Installing Java ..."
-sudo add-apt-repository ppa:webupd8team/java -y
-sudo apt-get update
-sudo apt-get install oracle-java7-installer -y
-
-
 echo "Clonning the repository ..."
 git clone https://github.com/IonicaBizau/configs
 
@@ -27,11 +21,8 @@ sudo apt-get install -y vim
 echo "Copying VIM files ..."
 cp -r vim-files/.vim* ~/
 
-echo "Installing Vundle ..."
-git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
-
-echo "Installing VIM plugins ..."
-vim +BundleInstall +qall
+echo "Installing NeoBundle ..."
+curl https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh | sh
 
 echo "Finished. Clean up ..."
 cd ..
