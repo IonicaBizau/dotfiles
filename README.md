@@ -31,67 +31,67 @@ Small scripts that make the work faster. Put them in the root directory:
     <tbody>
         <tr>
             <td>
-```sh
+<pre>
 $ /johnnysapps/moveDev.sh
-```
+</pre>
             </td>
             <td>
-```sh
+<pre>
 $ git tag -d dev
 $ git tag dev
 $ git push --tags
-```
+</pre>
             </td>
         </tr>
         <tr>
             <td>
-```sh
+<pre>
 $ /johnnysapps/Master.sh
-```
+</pre>
             </td>
             <td>
-```sh
+<pre>
 $ git checkout master
-```
+</pre>
             </td>
         </tr>
         <tr>
             <td>
-```sh
+<pre>
 $ /johnnysapps/checkoutMain.sh
-```
+</pre>
             </td>
             <td>
-```sh
+<pre>
 $ git checkout master
 $ git checkout main.js
-```
+</pre>
             </td>
         </tr>
         <tr>
             <td>
-```sh
+<pre>
 $ /johnnysapps/gitCommit.sh "foo"
-```
+</pre>
             </td>
             <td>
-```sh
+<pre>
 $ git commit -m "foo"
 $ git push
-```
+</pre>
             </td>
         </tr>
         <tr>
             <td>
-```sh
+<pre>
 $ /johnnysapps/update.sh
-```
+</pre>
             </td>
             <td>
-```sh
+<pre>
 $ sudo apt-get update
 $ sudo apt-get dist-upgrade
-```
+</pre>
             </td>
         </tr>
     </tbody>
