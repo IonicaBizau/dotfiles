@@ -3,7 +3,10 @@
 # for examples
 
 # If not running interactively, don't do anything
-[ -z "$PS1" ] && return
+case $- in
+    *i*) ;;
+      *) return;;
+esac
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
@@ -28,7 +31,7 @@ shopt -s checkwinsize
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 # set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
+if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
@@ -102,15 +105,33 @@ fi
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
-if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
+  fi
 fi
 
-### Git Setup
+# enable tmux
+# if [[ ! $TERM =~ screen ]]; then
+#     exec tmux
+# fi
+export TERM=xterm-256color
+
+# Engine
+export ENGINE_APPS="/home/ionicabizau/Documents/_engineApps/"
+export ENGINE_DIR=$ENGINE_APPS/engine/
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+
+# ASCII Magic
+youtube () {
+    DISPLAY= mplayer --quiet -vo caca "https://www.youtube.com/watch?v=$1"
+}
+
+# Git
 export GIT_AUTHOR_NAME="Ionică Bizău"
 export GIT_AUTHOR_EMAIL=bizauionica@yahoo.com
 export GIT_COMMITTER_NAME="Ionică  Bizău"
 export GIT_COMMITTER_EMAIL="bizauionica@yahoo.com"
-
-### Prompt style
-export PS1="\033[0;33m\h:\W \u\$ \e[m"
