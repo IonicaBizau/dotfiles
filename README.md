@@ -109,23 +109,42 @@ $ sudo apt-get dist-upgrade
     <tbody>
         <tr>
             <td>Qt</td>
-            <td>curl https://raw.github.com/IonicaBizau/dotfiles/master/apps/qt.sh | sh</td>
+            <td>
+<pre>
+            curl https://raw.github.com/IonicaBizau/dotfiles/master/apps/qt.sh | sh
+</pre>
+        </td>
         </tr>
         <tr>
             <td>Compiles VIM</td>
-            <td>curl https://raw.github.com/IonicaBizau/dotfiles/master/apps/get-vim.sh | sh</td>
+            <td>
+<pre>
+            curl https://raw.github.com/IonicaBizau/dotfiles/master/apps/get-vim.sh | sh
+</pre>
+            </td>
         </tr>
         <tr>
             <td>Node & Mongo</td>
-            <td>curl https://raw.github.com/IonicaBizau/dotfiles/master/apps/node-and-mongo.sh | sh</td>
+            <td>
+<pre>
+curl https://raw.github.com/IonicaBizau/dotfiles/master/apps/node-and-mongo.sh | sh</td>
+</pre>
         </tr>
         <tr>
             <td>Node</td>
-            <td>curl https://raw.github.com/IonicaBizau/dotfiles/master/apps/node.sh | sh</td>
+            <td>
+<pre>
+curl https://raw.github.com/IonicaBizau/dotfiles/master/apps/node.sh | sh
+</pre>
+            </td>
         </tr>
         <tr>
             <td>Banish404</td>
-            <td>curl https://raw.github.com/IonicaBizau/dotfiles/master/apps/banish404.sh | sh</td>
+            <td>
+<pre>
+curl https://raw.github.com/IonicaBizau/dotfiles/master/apps/banish404.sh | sh
+</pre>
+            </td>
         </tr>
     </tbody>
 </table>
