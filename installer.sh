@@ -29,16 +29,16 @@ echo "Installing VIM ..."
 sudo apt-get install -y vim
 
 echo "Copying .vimrc ..."
-cp -r vim/.vimrc ~/
+cp vim/.vimrc ~/
 
 echo "Copying user/.bashrc ..."
-cp -r user/.bashrc ~/
+cp user/.bashrc ~/
 
 echo "Copying user/.gitconfig ..."
-cp -r user/.gitconfig ~/
+cp user/.gitconfig ~/
 
 echo "Copying tmux/.tmux.conf ..."
-cp -r tmux/.tmux.conf ~/
+cp tmux/.tmux.conf ~/
 
 echo "Installing NeoBundle ..."
 curl https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh | sh

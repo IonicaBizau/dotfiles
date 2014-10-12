@@ -14,7 +14,7 @@
 ```sh
 $ wget -qO- http://goo.gl/3owX4S | sh
 # or
-$ curl http://goo.gl/3owX4S | sh
+$ curl -L http://goo.gl/3owX4S | sh
 ```
 
 ## File Structure
