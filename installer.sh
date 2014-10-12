@@ -28,14 +28,17 @@ sudo cp -r johnnysapps /
 echo "Installing VIM ..."
 sudo apt-get install -y vim
 
-echo "Copying .vimrc"
+echo "Copying .vimrc ..."
 cp -r vim/.vimrc ~/
 
-echo "Copying user/.bashrc ~/"
+echo "Copying user/.bashrc ..."
 cp -r user/.bashrc ~/
 
-echo "Copying user/.gitconfig ~/"
+echo "Copying user/.gitconfig ..."
 cp -r user/.gitconfig ~/
+
+echo "Copying tmux/.tmux.conf ..."
+cp -r tmux/.tmux.conf ~/
 
 echo "Installing NeoBundle ..."
 curl https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh | sh
