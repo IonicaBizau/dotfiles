@@ -17,6 +17,40 @@ $ wget -qO- https://raw.github.com/IonicaBizau/dotfiles/master/installer.sh | sh
 $ curl https://raw.github.com/IonicaBizau/dotfiles/master/installer.sh | sh
 ```
 
+## File Structure
+
+```sh
+$ tree -a -I '.git'
+.
+├── apps
+│   ├── banish404.sh
+│   ├── get-vim.sh
+│   ├── java.sh
+│   ├── node-and-mongo.sh
+│   ├── node.sh
+│   ├── openjdk.sh
+│   └── qt.sh
+├── .gitignore
+├── installer.sh
+├── johnnysapps
+│   ├── gitCommit.sh
+│   ├── Master.sh
+│   ├── moveDev.sh
+│   └── update.sh
+├── LICENSE
+├── README.md
+├── .README.md.swp
+├── tmux
+│   └── .tmux.conf
+├── user
+│   ├── .bashrc
+│   └── .gitconfig
+└── vim
+    └── .vimrc
+
+    5 directories, 20 files
+```
+
 ## Johnny's Apps
 
 Small scripts that make the work faster. Put them in the root directory:
@@ -98,6 +132,8 @@ $ sudo apt-get dist-upgrade
 </table>
 
 ## Applications
+
+A list of scripts that will install some applications that I often use.
 
 <table>
     <thead>
