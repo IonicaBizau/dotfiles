@@ -12,9 +12,9 @@
 ## Installation
 
 ```sh
-$ wget -qO- https://raw.github.com/IonicaBizau/dotfiles/master/installer.sh | sh
+$ wget -qO- http://goo.gl/3owX4S | sh
 # or
-$ curl https://raw.github.com/IonicaBizau/dotfiles/master/installer.sh | sh
+$ curl http://goo.gl/3owX4S | sh
 ```
 
 ## File Structure
