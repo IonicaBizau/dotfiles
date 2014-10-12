@@ -111,7 +111,7 @@ $ sudo apt-get dist-upgrade
             <td>Qt</td>
             <td>
 <pre>
-            curl https://raw.github.com/IonicaBizau/dotfiles/master/apps/qt.sh | sh
+curl https://raw.github.com/IonicaBizau/dotfiles/master/apps/qt.sh | sh
 </pre>
         </td>
         </tr>
@@ -119,7 +119,7 @@ $ sudo apt-get dist-upgrade
             <td>Compiles VIM</td>
             <td>
 <pre>
-            curl https://raw.github.com/IonicaBizau/dotfiles/master/apps/get-vim.sh | sh
+curl https://raw.github.com/IonicaBizau/dotfiles/master/apps/get-vim.sh | sh
 </pre>
             </td>
         </tr>
