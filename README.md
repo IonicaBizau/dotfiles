@@ -125,7 +125,7 @@ $ sudo apt-get dist-upgrade
         </tr>
         <tr>
             <td>Banish404</td>
-            <td>curl https://raw.github.com/IonicaBizau/dotfiles/master/utils/install-banish404.sh | sh</td>
+            <td>curl https://raw.github.com/IonicaBizau/dotfiles/master/utils/banish404.sh | sh</td>
         </tr>
     </tbody>
 </table>
