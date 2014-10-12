@@ -8,6 +8,7 @@ echo "                       \/                               \/     \/      "
 echo "                                                                       "
 echo "            This repository contains personal dotfiles of Ionică Bizău."
 echo "                              - - - - - - - - - -                      "
+echo ""
 
 echo "Installing git ..."
 sudo apt-get install git -y
@@ -27,12 +28,18 @@ sudo cp -r johnnysapps /
 echo "Installing VIM ..."
 sudo apt-get install -y vim
 
-echo "Copying VIM files ..."
-cp -r vim-files/.vim* ~/
+echo "Copying .vimrc"
+cp -r vim/.vimrc ~/
+
+echo "Copying user/.bashrc ~/"
+cp -r user/.bashrc ~/
+
+echo "Copying user/.gitconfig ~/"
+cp -r user/.gitconfig ~/
 
 echo "Installing NeoBundle ..."
 curl https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh | sh
 
-echo "Finished. Clean up ..."
+echo "Finished. Cleaning up ..."
 cd ..
 rm -rf dotfiles
