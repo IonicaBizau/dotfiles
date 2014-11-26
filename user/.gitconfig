@@ -1,12 +1,16 @@
 [user]
     email = bizauionica@yahoo.com
     name = Ionică Bizău
+
 [ui]
     colors = true
+
 [push]
     default = matching
+
 [color]
     ui = true
+
 [alias]
     lg1 = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
     lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
@@ -14,4 +18,3 @@
     dbranch = "!sh -c \"git branch -d $1 && git push origin :$1\""
     tree = log --graph --decorate --pretty=oneline --abbrev-commit
     count = rev-list HEAD --count
-    clone-branches = "! git branch -a | sed -n \"/\\/HEAD /d; /\\/master$/d; /remotes/p;\" | xargs -L1 git checkout -t"
