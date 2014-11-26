@@ -147,7 +147,7 @@ A list of scripts that will install some applications that I often use.
             <td>Qt</td>
             <td>
 <pre>
-curl https://raw.github.com/IonicaBizau/dotfiles/master/apps/qt.sh | sh
+curl https://raw.githubusercontent.com/IonicaBizau/dotfiles/master/apps/qt.sh | sh
 </pre>
         </td>
         </tr>
@@ -155,7 +155,7 @@ curl https://raw.github.com/IonicaBizau/dotfiles/master/apps/qt.sh | sh
             <td>Compiles VIM</td>
             <td>
 <pre>
-curl https://raw.github.com/IonicaBizau/dotfiles/master/apps/get-vim.sh | sh
+curl https://raw.githubusercontent.com/IonicaBizau/dotfiles/master/apps/get-vim.sh | sh
 </pre>
             </td>
         </tr>
@@ -163,14 +163,14 @@ curl https://raw.github.com/IonicaBizau/dotfiles/master/apps/get-vim.sh | sh
             <td>Node & Mongo</td>
             <td>
 <pre>
-curl https://raw.github.com/IonicaBizau/dotfiles/master/apps/node-and-mongo.sh | sh</td>
+curl https://raw.githubusercontent.com/IonicaBizau/dotfiles/master/apps/node-and-mongo.sh | sh</td>
 </pre>
         </tr>
         <tr>
             <td>Node</td>
             <td>
 <pre>
-curl https://raw.github.com/IonicaBizau/dotfiles/master/apps/node.sh | sh
+curl https://raw.githubusercontent.com/IonicaBizau/dotfiles/master/apps/node.sh | sh
 </pre>
             </td>
         </tr>
@@ -178,7 +178,7 @@ curl https://raw.github.com/IonicaBizau/dotfiles/master/apps/node.sh | sh
             <td>Banish404</td>
             <td>
 <pre>
-curl https://raw.github.com/IonicaBizau/dotfiles/master/apps/banish404.sh | sh
+curl https://raw.githubusercontent.com/IonicaBizau/dotfiles/master/apps/banish404.sh | sh
 </pre>
             </td>
         </tr>
