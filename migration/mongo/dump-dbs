@@ -1,0 +1,15 @@
+#!/bin/bash
+
+echo "Installing dependencies."
+npm install mongodb
+
+echo "This script will dump your Mongo databases."
+node dump-dbs.js
+
+echo "Archiving databases."
+zip -r dbs.zip dump
+
+echo "Removing obsole directory."
+rm -rf dump
+
+echo "Dump available at: $PWD/dbs.zip"
