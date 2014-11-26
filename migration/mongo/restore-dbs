@@ -7,15 +7,14 @@ echo "This script will restore your Mongo databases from dbs.zip"
 echo "Unzipping dbs.zip"
 unzip dbs.zip
 
-echo "Archiving databases."
-zip -r dbs.zip dump
-
 echo "Finding databases dumps in $PWD/dump"
 dbs=`ls dump`
 
-# TODO
-#
-# echo "Removing obsole directory."
-# rm -rf dump
-#
-# echo "Dump available at: $PWD/dbs.zip"
+# Import databases
+echo "Restoring databases..."
+mongorestore ./dump/
+
+echo "Removing obsole directory."
+rm -rf dump
+
+echo "Done."
