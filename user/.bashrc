@@ -133,5 +133,6 @@ youtube () {
 # Git
 export GIT_AUTHOR_NAME="Ionică Bizău"
 export GIT_AUTHOR_EMAIL=bizauionica@yahoo.com
-export GIT_COMMITTER_NAME="Ionică  Bizău"
-export GIT_COMMITTER_EMAIL="bizauionica@yahoo.com"
+
+# Add Node path to $PATH
+export PATH=$HOME/.node/bin:$PATH
