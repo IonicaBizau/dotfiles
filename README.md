@@ -51,6 +51,20 @@ $ tree -a -I '.git'
     5 directories, 20 files
 ```
 
+## NPM Config
+
+Do not install Node.JS packages as root (never) but with the current user.
+
+```sh
+$ echo prefix = ~/.node >> ~/.npmrc
+```
+
+Then open `~/.bashrc` (Linux) or `~/.bash_profile` (Mac) and add:
+
+```sh
+export PATH=$HOME/.node/bin:$PATH
+```
+
 ## Johnny's Apps
 
 Small scripts that make the work faster. Put them in the root directory:
