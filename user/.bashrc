@@ -130,9 +130,14 @@ youtube () {
     DISPLAY= mplayer --quiet -vo caca "https://www.youtube.com/watch?v=$1"
 }
 
+ghclone () {
+    git clone git@github.com:$GITHUB_USERNAME/$1.git
+}
+
 # Git
 export GIT_AUTHOR_NAME="Ionică Bizău"
 export GIT_AUTHOR_EMAIL=bizauionica@yahoo.com
+export GITHUB_USERNAME='IonicaBizau'
 
 # Add Node path to $PATH
 export PATH=$HOME/.node/bin:$PATH
