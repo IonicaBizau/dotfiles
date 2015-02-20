@@ -8,7 +8,6 @@
 // @grant        none
 // ==/UserScript==
 
-
 (function (window) {
     var Hosts = {
         "octicons.github.com": function () {
@@ -50,6 +49,25 @@
               }
               return false;
             });
+        }
+      , "github.com": function () {
+          	(function () {
+          		if (!/^https\:\/\/github\.com\/[a-z]+\/.*\/pull\/[0-9]+\/?$/i.test(location.href)) { return; }
+              	$(".commit-ref.current-branch.css-truncate.js-selectable-text.expandable").on("click", function () {                  var s = $(this).text().split(":")
+                    , repo = location.pathname.match(/[a-z]+\/(.*)\/pull\/[0-9]+/)[1]
+                    , l = "https://github.com/_username_/_repo_/tree/_branch_"
+                    .replace("_username_", s[0])
+                    .replace("_repo_", repo)
+                    .replace("_branch_", s[1])
+                    ;
+                  
+                  	window.open(l, "_blank").focus();
+              	}).css("cursor", "pointer");
+                
+                (function () {
+                    // TODO   
+                })();
+          })();
         }
     };
     Hosts[location.host] && Hosts[location.host]();
