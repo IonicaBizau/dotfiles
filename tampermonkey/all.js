@@ -15,7 +15,6 @@
             var ACTIVE = "navigation-focus";
             $(window).on("keydown", function (e) {
 
-              console.log(e.which)
               if (!/^40|38|13$/.test(e.which.toString())) { return; }
 
               var $dropdown = $(".search-results.js-results.is-showing");
@@ -52,31 +51,32 @@
             });
         }
       , "github.com": function () {
-              (function () {
-                  if (!/^https\:\/\/github\.com\/[a-z]+\/.*\/pull\/[0-9]+\/?$/i.test(location.href)) { return; }
-                  $(".commit-ref.current-branch.css-truncate.js-selectable-text.expandable").on("click", function () {
-                  var s = $(this).text().split(":")
-                    , repo = location.pathname.match(/[a-z]+\/(.*)\/pull\/[0-9]+/)[1]
-                    , l = "https://github.com/_username_/_repo_/tree/_branch_"
-                    .replace("_username_", s[0])
-                    .replace("_repo_", repo)
-                    .replace("_branch_", s[1])
-                    ;
+            (function () {
+                if (!/^https\:\/\/github\.com\/[a-z]+\/.*\/pull\/[0-9]+\/?$/i.test(location.href)) { return; }
+                $(".commit-ref.current-branch.css-truncate.js-selectable-text.expandable").on("click", function () {
+                var s = $(this).text().split(":")
+                  , repo = location.pathname.match(/[a-z]+\/(.*)\/pull\/[0-9]+/)[1]
+                  , l = "https://github.com/_username_/_repo_/tree/_branch_"
+                  .replace("_username_", s[0])
+                  .replace("_repo_", repo)
+                  .replace("_branch_", s[1])
+                  ;
 
-                      window.open(l, "_blank").focus();
-                  }).css("cursor", "pointer");
-              })();
+                  window.open(l, "_blank").focus();
+                }).css("cursor", "pointer");
+            })();
 
             // Publish release with CTRL + ENTER
             (function () {
                 if (!/^https\:\/\/github\.com\/[a-z]+\/.*\/releases\/new\/?$/i.test(location.href)) { return; }
                 $("textarea#release_body").on("keyup", function (e) {
                     if(e.which === 13 && e.ctrlKey, e) {
-                          $("form.new_release").submit();
+                        $("form.new_release").submit();
                     }
                 });
             })();
         }
     };
+
     Hosts[location.host] && Hosts[location.host]();
 })(window);
