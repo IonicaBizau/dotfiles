@@ -65,6 +65,12 @@ Then open `~/.bashrc` (Linux) or `~/.bash_profile` (Mac) and add:
 export PATH=$HOME/.node/bin:$PATH
 ```
 
+Finally, run the following command to update the environment variables.
+
+```sh
+$ source ~/.bashrc
+```
+
 ## Johnny's Apps
 
 Small scripts that make the work faster. Put them in the root directory:
