@@ -136,7 +136,7 @@ ghclone () {
 
 # Git
 export GIT_AUTHOR_NAME="Ionică Bizău"
-export GIT_AUTHOR_EMAIL=bizauionica@yahoo.com
+export GIT_AUTHOR_EMAIL=bizauionica@gmail.com
 export GITHUB_USERNAME='IonicaBizau'
 
 # Add Node path to $PATH
