@@ -24,9 +24,7 @@
             This repository contains personal dotfiles of Ionică Bizău.
 ```
 
-# `$ ` [![Donate now][donate-now]][paypal-donations]
-
-## Installation
+## Installation [![Donate now][donate-now]][paypal-donations]
 
 ```sh
 $ wget -qO- http://goo.gl/3owX4S | sh
