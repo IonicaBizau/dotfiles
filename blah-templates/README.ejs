@@ -19,6 +19,7 @@
 <% var Fs = require("fs"); %>
 <% var Path = require("path"); %>
 <% var Ul = require("ul"); %>
+<% var ExecSync = require("child_process").execSync; %>
 
 <% // Compute the directory paths %>
 <% var binPath = Path.join(_.path, "bin"); %>
@@ -39,29 +40,43 @@
 <% } %>
 <%- _.pack.description %>
 
+<%- _.pack.blah.description %>
+
 <% if (_.pack.blah.ex_img) { %>
 ![<%- _.pack.name %>](<%-_.pack.blah.ex_img %>)
 <% } %>
 
 <% // INSTALLATION %>
 ## Installation
-
-```sh
-$ npm i <%- _.pack.name %>
-```
-
 <% // Cli usage %>
 <% if (isCli) { %>
-### CLI Usage
 You can install the package globally and use it as command line tool:
 
 ```sh
 $ npm i -g <%- _.pack.name %>
 ```
 
-Then, run `<%- _.pack.name %> --help` and see what the cli tool can do.
+Then, run `<%- _.pack.name %> --help` and see what the CLI tool can do.
+
+<% if (_.pack.bin) { %>
+<% var cliCommand = Object.keys(_.pack.bin) %>
+<% var cliPath = _.pack.bin[cliCommand] %>
+<% } %>
+<% if (IsThere(cliPath)) { %>
+```sh
+$ <%- cliCommand %> --help
+<%- ExecSync(cliPath + " --help", { cwd: process.cwd() }).toString().slice(0, -1) %>
+```
+<% } %>
+
+<% } else { %>
+
+```sh
+$ npm i <%- _.pack.name %>
+```
 
 <% } %>
+
 
 <% // Show the example if there is one %>
 <% if (example) { %>
@@ -73,7 +88,12 @@ Then, run `<%- _.pack.name %> --help` and see what the cli tool can do.
 ## Example
 
 <% if (isCli) { %>
-Here is an example how to use this package as library.
+Here is an example how to use this package as library. To install it locally, as library, you can do that using `npm`:
+
+```sh
+$ npm i <%- _.pack.name %>
+```
+
 <% } %>
 
 <% var exStr = Fs.readFileSync(exStrPath, "utf-8"); %>
@@ -109,7 +129,7 @@ None yet. If you wrote or found an article about this project, [add it][contribu
 a copy of the license.
 
 <% // Links %>
-[license]: http://ionicabizau.github.io/kindly-license/?author=Ionic%C4%83%20Biz%C4%83u%20%3Cbizauionica@gmail.com%3E&year=2015
+[license]: http://ionicabizau.github.io/kindly-license/?author=Ionic%C4%83%20Biz%C4%83u%20%3Cbizauionica@gmail.com%3E&year=<%- new Date().getFullYear() %>
 [contributing]: /CONTRIBUTING.md
 [website]: http://ionicabizau.net
 [docs]: /DOCUMENTATION.md
