@@ -26,28 +26,33 @@
 <% var examplesPath = Path.join(_.path, "examples"); %>
 <% var examplePath = Path.join(_.path, "example"); %>
 <% var example = IsThere(examplePath) ? examplePath : IsThere(examplesPath) ? examplesPath : null; %>
+<% var isWeb = IsThere(examplePath + "/index.html"); %>
+<% var isOnlyWeb = IsThere(process.cwd() + "/index.html"); %>
+<% isWeb = isWeb || isOnlyWeb; %>
 <% var isCli = IsThere(binPath); %>
 
 <% if (_.pack.blah.h_img) { %>
-![<%- _.pack.name %>](<%- _.pack.blah.h_img %>)
+[![<%- _.pack.name %>](<%- _.pack.blah.h_img %>)](<%-_.pack.blah.h_url || "#"%>)
 <% } %>
 
 <% // Create the name and description %>
 <% if (isCli) { %>
 # `$ <%- _.pack.name %>` [![Donate now][donate-now]][paypal-donations]
 <% } else { %>
-# <%- _.pack.name %> [![Donate now][donate-now]][paypal-donations]
+# <%- _.pack.blah.title || _.pack.name %> [![Donate now][donate-now]][paypal-donations]
 <% } %>
 <%- _.pack.description %>
 
 <%- _.pack.blah.description %>
 
 <% if (_.pack.blah.ex_img) { %>
-![<%- _.pack.name %>](<%-_.pack.blah.ex_img %>)
+[![<%- _.pack.name %>](<%- _.pack.blah.ex_img %>)](<%-_.pack.blah.ex_url || "#"%>)
 <% } %>
 
 <% // INSTALLATION %>
+<% if (!isOnlyWeb) { %>
 ## Installation
+<% } %>
 <% // Cli usage %>
 <% if (isCli) { %>
 You can install the package globally and use it as command line tool:
@@ -69,6 +74,10 @@ $ <%- cliCommand %> --help
 ```
 <% } %>
 
+<% } else if (isWeb) { %>
+<% if (!isOnlyWeb) { %>
+Check out the [`dist`](/dist) directory to download the script and include into your page.
+<% } %>
 <% } else { %>
 
 ```sh
@@ -107,6 +116,7 @@ $ npm i <%- _.pack.name %>
 
 
 <% // Documentation %>
+<% if (!isOnlyWeb) { %>
 ## Documentation
 
 <% if (isCli) { %>
@@ -115,13 +125,34 @@ For full API reference, see the [DOCUMENTATION.md][docs] file.
 <% docs = docs.split("\n").slice(3).join("\n"); %>
 <%- docs %>
 <% } %>
+<% } %>
 
 <% // How to contribute %>
 ## How to contribute
 Have an idea? Found a bug? See [how to contribute][contributing].
 
+<% // Thanks %>
+<% if (_.pack.blah.thanks) { %>
+## Thanks
+<% for (var k in _.pack.blah.thanks) { %>
+ - <%-_.pack.blah.thanks[k]%>
+<% } %>
+<% } %>
+
 ## Press Highlights
 None yet. If you wrote or found an article about this project, [add it][contributing] in this section.  :memo:
+
+<% if (!isOnlyWeb) { %>
+## Who uses this
+If you are using this library in one of your projects, add it in this list. :sparkles:
+<% } %>
+
+<% // Who used this? %>
+<% if (_.pack.blah.usages) { %>
+<% for (var k in _.pack.blah.usages) { %>
+ - [<%-_.pack.blah.usages[k].name%>](<%-_.pack.blah.usages[k].url%>)
+<% } %>
+<% } %>
 
 <% // License information %>
 ## License
