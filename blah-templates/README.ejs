@@ -106,7 +106,7 @@ $ npm i <%- _.pack.name %>
 <% } %>
 
 <% var exStr = Fs.readFileSync(exStrPath, "utf-8"); %>
-<% exStr = exStr.replace("../lib", _.pack.name) %>
+<% exStr = exStr.replace("../lib", _.pack.name).trimRight() %>
 
 ```js
 <%- exStr %>
@@ -139,8 +139,13 @@ Have an idea? Found a bug? See [how to contribute][contributing].
 <% } %>
 <% } %>
 
+<% // Press %>
+<% if (_.pack.blah.press) { %>
 ## Press Highlights
-None yet. If you wrote or found an article about this project, [add it][contributing] in this section.  :memo:
+<% for (var k in _.pack.blah.press) { %>
+ - <%-_.pack.blah.press[k]%>
+<% } %>
+<% } %>
 
 <% if (!isOnlyWeb) { %>
 ## Who uses this
