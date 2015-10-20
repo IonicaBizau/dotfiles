@@ -76,9 +76,26 @@ NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 'lrvick/Conque-Shell'
 NeoBundle 'heavenshell/vim-jsdoc'
 
+let g:jsdoc_custom_args_hook = {
+  \ 'callback\|cb': {
+  \   'type': '{Function}',
+  \   'description': 'The callback function.'
+  \ },
+  \ 'project': {
+  \   'type': '{String}',
+  \   'description': 'The project name.'
+  \ },
+  \ 'progress': {
+  \   'type': '{Function}',
+  \   'description': 'The progress function.'
+  \ }
+\}
+
 let g:jsdoc_allow_input_prompt = 1
 let g:jsdoc_additional_descriptions = 1
 let g:jsdoc_return_description = 1
+let g:jsdoc_enable_es6 = 1
+nmap <silent> <C-l> <Plug>(jsdoc)
 
 NeoBundle "MarcWeber/vim-addon-mw-utils"
 NeoBundle "tomtom/tlib_vim"
@@ -215,7 +232,7 @@ nnoremap <silent> <C-t> :tabnew<CR>
 
 " Paste Mode!  Dang! <F10>
 nnoremap <silent> <F10> :call Paste_on_off()<CR>
-nnoremap <silent> <F12> :call OpenTerminal()<CR>
+nnoremap <silent> <F12> :wincmd w<CR>
 set pastetoggle=<F10>
 
 " Swap ; and :  Convenient.
