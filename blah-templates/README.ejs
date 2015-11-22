@@ -1,5 +1,4 @@
 <% _.pack.blah = _.pack.blah || {} %>
-
 <% // Dependencies %>
 <% var IsThere = require("is-there"); %>
 <% var JsonToMarkdown = require("json2md"); %>
@@ -32,6 +31,9 @@
 <% if (authorIsMe) { %>
 <%  readmeTitle += " [![Support this project][donate-now]][paypal-donations]"; %>
 <% } %>
+
+# <%-readmeTitle%>
+<%- _.pack.description %>
 
 <% // Heading image %>
 <% if (_.pack.blah.h_img) { %>
@@ -193,7 +195,7 @@ If you are using this library in one of your projects, add it in this list. :spa
 <% console.log("Fetching the dependents. This may take a while") %>
 <% var Dependents = Deasync(require("package-dependents")); %>
 <% try { %>
-<%  var packages = Dependents(_.pack.name); %>
+<% var packages = Dependents(_.pack.name); %>
 <% for (var i in packages) { %>
 <%   var c = packages[i]; %>
 <%   c.homepage = c.homepage || ("https://npmjs.com/package/" + c.name); %>
