@@ -1,4 +1,5 @@
 <% _.pack.blah = _.pack.blah || {} %>
+<% require = (function () { var _oldRequire = require; return function (p) { try { return _oldRequire(p); } catch (e) { return _oldRequire("/home/ionicabizau/.blah-templates/node_modules/" + p); } }})(); %>
 
 <% // Dependencies %>
 <% var IsThere = require("is-there"); %>
@@ -6,6 +7,8 @@
 <% var Fs = require("fs"); %>
 <% var Path = require("path"); %>
 <% var Ul = require("ul"); %>
+<% var ParseAuthor = require("parse-author"); %>
+<% var pAuthor = ParseAuthor(_.pack.author); %>
 <% var ExecSync = require("child_process").execSync; %>
 
 <% // Compute the directory paths %>
@@ -95,7 +98,7 @@ $ <%- cliCommand %> --help
 
 <% } else if (isWeb) { %>
 <% if (!isOnlyWeb) { %>
-Check out the [`dist`](/dist) directory to download the script and include into your page.
+Check out the [`dist`](/dist) directory to download the needed files and include them on your page.
 <% } %>
 <% } else { %>
 <% if (_.pack.blah.installation_command) { %>
@@ -201,6 +204,10 @@ If you are using this library in one of your projects, add it in this list. :spa
 <% } %>
 <% } catch (e) { console.log(e); } %>
 
+<% if (_.pack.blah.related) { %>
+<%-JsonToMarkdown(_.pack.blah.related, "ul")%>
+<% } %>
+
 <% if (_.pack.blah.usages) { %>
 <%-JsonToMarkdown(_.pack.blah.usages)%>
 <% } %>
@@ -211,19 +218,17 @@ If you are using this library in one of your projects, add it in this list. :spa
 ## License
 <% if (_.pack.blah.license) { %>
 <%-JsonToMarkdown(_.pack.blah.license)%>
-<% } if (authorIsMe) { %>
-[KINDLY][license] © [Ionică Bizău][website]
 <% } else { %>
-See the [LICENSE](/LICENSE) file.
+[<%- _.pack.license %>][license] © [<%- pAuthor.name %>][website]
 <% } %>
 <% } %>
 
 <% // Links %>
 <% if (authorIsMe) { %>
-[license]: http://ionicabizau.github.io/kindly-license/?author=Ionic%C4%83%20Biz%C4%83u%20%3Cbizauionica@gmail.com%3E&year=<%- _.pack.blah.license_year %>
-[website]: http://ionicabizau.net
 [paypal-donations]: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=RVXDDLKKLQRJW
 [donate-now]: http://i.imgur.com/6cMbHOC.png
 <% } %>
+[license]: http://showalicense.com/?fullname=<%- encodeURIComponent(_.pack.author) %>&year=<%-_.first_commit_year%>#license-<%- _.pack.license.toLowerCase() %>
+[website]: <%- pAuthor.url %>
 [contributing]: /CONTRIBUTING.md
 [docs]: /DOCUMENTATION.md
