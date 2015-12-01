@@ -105,7 +105,7 @@ Check out the [`dist`](/dist) directory to download the needed files and include
 <%- JsonToMarkdown(_.pack.blah.installation_command, undefined, "code"); %>
 <% } else { %>
 ```sh
-$ npm i <%- _.pack.name %>
+$ npm i <%- _.pack.blah.is_dev ? "--save-dev" : "--save" %> <%- _.pack.name %>
 ```
 <% } %>
 <% } %>
@@ -130,7 +130,7 @@ $ npm i <%- _.pack.name %>
 Here is an example how to use this package as library. To install it locally, as library, you can do that using `npm`:
 
 ```sh
-$ npm i <%- _.pack.name %>
+$ npm i <%- _.pack.blah.is_dev ? "--save-dev" : "--save" %> <%- _.pack.name %>
 ```
 
 <% } %>
