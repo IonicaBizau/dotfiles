@@ -1,6 +1,6 @@
 {
   "name": "ionicabizau-dotfiles",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "This repository contains personal dotfiles of Ionică Bizău.",
   "main": "index.js",
   "scripts": {
@@ -15,7 +15,7 @@
     "ionicabizau"
   ],
   "author": "Ionică Bizău <bizauionica@gmail.com> (http://ionicabizau.net)",
-  "license": "KINDLY",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/IonicaBizau/dotfiles/issues"
   },
