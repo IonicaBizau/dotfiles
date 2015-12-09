@@ -21,7 +21,7 @@
 " recommend picking out the parts you want and understand.
 "
 " You can find me at https://github.com/IonicaBizau
-" Licensed with <3 under The KINDLY License.
+" Licensed with <3 under The MIT License.
 
 " ------------------------------"
 " Plugins
