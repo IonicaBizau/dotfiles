@@ -23,6 +23,9 @@
 
 <% var firstCommitYear = ExecSync("git log --pretty=format:%ad | tail -1 | awk -v N=5 '{print $N}'").toString(); %>
 <% _.pack.blah.license_year = _.pack.blah.license_year || firstCommitYear || new Date().getFullYear(); %>
+<% var mainFile = _.path + "/" + _.pack.main %>
+<% var notALibrary = !IsThere(mainFile) %>
+
 
 <% // Create the name and description %>
 <% var readmeTitle = _.pack.name; %>
@@ -65,6 +68,9 @@
 <% } %>
 
 <% // INSTALLATION %>
+<% if (_.pack.blah.show_installation === undefined && notALibrary) { %>
+<%  _.pack.blah.show_installation = false; %>
+<% } %>
 <% if (_.pack.blah.show_installation !== false) { %>
 <% if (!isOnlyWeb) { %>
 ## Installation
@@ -150,8 +156,12 @@ $ npm i <%- _.pack.blah.is_dev ? "--save-dev" : "--save" %> <%- _.pack.name %>
 <% } %>
 
 <% // Documentation %>
+<% if (_.pack.blah.show_docs === undefined && !docs.trim().length) { %>
+<%  _.pack.blah.show_docs = false; %>
+<% } %>
 <% if (_.pack.blah.show_docs !== false) { %>
 <% if (!isOnlyWeb) { %>
+
 ## Documentation
 <% if (isCli) { %>
 <% if (_.pack.blah.show_docs_md !== false) { %>
@@ -174,8 +184,10 @@ For full API reference, see the [DOCUMENTATION.md][docs] file.
 <% } %>
 
 <% // How to contribute %>
+<% if (_.pack.blah.show_contributing !== false) { %>
 ## How to contribute
 Have an idea? Found a bug? See [how to contribute][contributing].
+<% } %>
 
 <% if (_.pack.blah.contributing) { %>
 <%-JsonToMarkdown(_.pack.blah.contributing)%>
@@ -187,7 +199,7 @@ Have an idea? Found a bug? See [how to contribute][contributing].
 <%-JsonToMarkdown(_.pack.blah.thanks)%>
 <% } %>
 
-<% if (!isOnlyWeb && _.pack.blah.show_usage !== false) { %>
+<% if (!isOnlyWeb && _.pack.blah.show_usage !== false && !notALibrary) { %>
 ## Where is this library used?
 If you are using this library in one of your projects, add it in this list. :sparkles:
 
