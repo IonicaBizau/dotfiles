@@ -156,13 +156,15 @@ $ npm i <%- _.pack.blah.is_dev ? "--save-dev" : "--save" %> <%- _.pack.name %>
 <% } %>
 
 <% // Documentation %>
-<% if (_.pack.blah.show_docs === undefined && !docs.trim().length) { %>
+<% if (_.pack.blah.show_docs === undefined && docs.split("\n").length <= 6) { %>
 <%  _.pack.blah.show_docs = false; %>
 <% } %>
 <% if (_.pack.blah.show_docs !== false) { %>
 <% if (!isOnlyWeb) { %>
 
+<% if (_.pack.blah.show_docs_md !== false) { %>
 ## Documentation
+<% } %>
 <% if (isCli) { %>
 <% if (_.pack.blah.show_docs_md !== false) { %>
 For full API reference, see the [DOCUMENTATION.md][docs] file.
@@ -217,7 +219,8 @@ If you are using this library in one of your projects, add it in this list. :spa
 <% } catch (e) { console.log(e); } %>
 
 <% if (_.pack.blah.related) { %>
-<%-JsonToMarkdown(_.pack.blah.related, "ul")%>
+## Related
+<%-JsonToMarkdown(_.pack.blah.related)%>
 <% } %>
 
 <% if (_.pack.blah.usages) { %>
