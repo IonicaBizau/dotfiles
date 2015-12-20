@@ -92,7 +92,7 @@ let g:jsdoc_custom_args_hook = {
 \}
 
 let g:jsdoc_type_hook = {
- \ 'Object': 'An object containing the following fields:'
+ \ 'Object': 'An object containing the following fields:',
  \ 'Function': 'The callback function.'
  \ }
 
