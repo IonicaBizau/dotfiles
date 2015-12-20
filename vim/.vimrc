@@ -91,6 +91,12 @@ let g:jsdoc_custom_args_hook = {
   \ }
 \}
 
+let g:jsdoc_type_hook = {
+ \ 'Object': 'An object containing the following fields:'
+ \ 'Function': 'The callback function.'
+ \ }
+
+
 let g:jsdoc_allow_input_prompt = 1
 let g:jsdoc_additional_descriptions = 1
 let g:jsdoc_return_description = 1
