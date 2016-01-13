@@ -10,6 +10,8 @@
 <% var ParseAuthor = require("parse-author"); %>
 <% var pAuthor = ParseAuthor(_.pack.author); %>
 <% var ExecSync = require("child_process").execSync; %>
+<% var GitUrlParse = require("git-url-parse"); %>
+<% var parsedGitUrl = GitUrlParse(_.pack.repository.url); %>
 
 <% // Compute the directory paths %>
 <% var binPath = Path.join(_.path, "bin"); %>
@@ -26,7 +28,6 @@
 <% var mainFile = _.path + "/" + _.pack.main %>
 <% var notALibrary = !IsThere(mainFile) %>
 
-
 <% // Create the name and description %>
 <% var readmeTitle = _.pack.name; %>
 <% if (isCli) { %>
@@ -34,9 +35,21 @@
 <% } else { %>
 <% readmeTitle = _.pack.blah.title || _.pack.name %>
 <% } %>
+
 <% var authorIsMe = /bizauionica/.test(_.pack.author); %>
 <% if (authorIsMe) { %>
-<%  readmeTitle += " [![Support this project][donate-now]][paypal-donations]"; %>
+<%  readmeTitle += " [![PayPal](https://img.shields.io/badge/%24-paypal-f39c12.svg)][paypal-donations]"; %>
+<% } %>
+<% if (IsThere(_.path + "/.travis.yml")) { %>
+<%  if (!parsedGitUrl.owner || !parsedGitUrl.name) { %>
+<%    console.log("Cannot get the owner or the name."); %>
+<%  } %>
+<%  readmeTitle += ` [![Travis](https://img.shields.io/travis/${parsedGitUrl.owner}/${parsedGitUrl.name})](https://travis-ci.org/${parsedGitUrl.owner}/${parsedGitUrl.name}/)`; %>
+<% } %>
+<% readmeTitle += ` [![Version](https://img.shields.io/npm/v/${_.pack.name}.svg)](https://www.npmjs.com/package/${_.pack.name})` %>
+<% readmeTitle += ` [![Downloads](https://img.shields.io/npm/dt/${_.pack.name}.svg)](https://www.npmjs.com/package/${_.pack.name})` %>
+<% if (authorIsMe) { %>
+<%  readmeTitle += " [![Get help on Codementor](https://cdn.codementor.io/badges/get_help_github.svg)](https://www.codementor.io/johnnyb?utm_source=github&utm_medium=button&utm_term=johnnyb&utm_campaign=github)" %>
 <% } %>
 
 <% // Heading image %>
@@ -54,7 +67,7 @@
 # <%-readmeTitle%>
 <% } %>
 <% if (_.pack.blah.show_description !== false) { %>
-<%-_.pack.description%>
+> <%-_.pack.description%>
 <% } %>
 
 <% // Blah custom description %>
