@@ -77,7 +77,7 @@ NeoBundle 'lrvick/Conque-Shell'
 NeoBundle 'heavenshell/vim-jsdoc'
 
 let g:jsdoc_custom_args_hook = {
-  \ 'callback\|cb': {
+  \ 'callback\|cb\|fn': {
   \   'type': '{Function}',
   \   'description': 'The callback function.'
   \ },
