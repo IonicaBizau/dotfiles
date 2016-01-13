@@ -104,7 +104,11 @@ $ <%- cliCommand %> --help
 
 <% } else if (isWeb) { %>
 <% if (!isOnlyWeb) { %>
-Check out the [`dist`](/dist) directory to download the needed files and include them on your page.
+
+<% var distPath = Path.join(_.path, "dist"); %>
+<% var srcPath = Path.join(_.path, "src"); %>
+<% var distDir = IsThere(distPath) ? "dist" : IsThere(srcPath) ? "src" : "lib"; %>
+Check out the [`<%-distDir%>`](/<%- distDir %>) directory to download the needed files and include them on your page.
 <% } %>
 <% } else { %>
 <% if (_.pack.blah.installation_command) { %>
