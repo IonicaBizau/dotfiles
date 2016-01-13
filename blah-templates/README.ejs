@@ -162,21 +162,24 @@ $ npm i <%- _.pack.blah.is_dev ? "--save-dev" : "--save" %> <%- _.pack.name %>
 <% if (_.pack.blah.show_docs !== false) { %>
 <% if (!isOnlyWeb) { %>
 
-<% if (_.pack.blah.show_docs_md !== false) { %>
+<% if (_.pack.blah.show_docs !== false) { %>
 ## Documentation
 <% } %>
 <% if (isCli) { %>
-<% if (_.pack.blah.show_docs_md !== false) { %>
+<% if (_.pack.blah.show_docs !== false) { %>
 For full API reference, see the [DOCUMENTATION.md][docs] file.
 <% } %>
 <% } else if (_.pack.blah.show_jsdocs !== false) { %>
 <% docs = docs.split("\n").slice(3).join("\n"); %>
 <%- docs %>
 <% } %>
+<% } %>
+<% } %>
 <% if (_.pack.blah.documentation) { %>
+<% if (_.pack.blah.show_docs === false) { %>
+## Documentation
+<% } %>
 <%-JsonToMarkdown(_.pack.blah.documentation) %>
-<% } %>
-<% } %>
 <% } %>
 
 <% // Press %>
@@ -218,15 +221,16 @@ If you are using this library in one of your projects, add it in this list. :spa
 <% } %>
 <% } catch (e) { console.log(e); } %>
 
+<% if (_.pack.blah.usages) { %>
+<%-JsonToMarkdown(_.pack.blah.usages)%>
+<% } %>
+<% } %>
+
 <% if (_.pack.blah.related) { %>
 ## Related
 <%-JsonToMarkdown(_.pack.blah.related)%>
 <% } %>
 
-<% if (_.pack.blah.usages) { %>
-<%-JsonToMarkdown(_.pack.blah.usages)%>
-<% } %>
-<% } %>
 
 <% // License information %>
 <% if (_.pack.blah.show_license !== false) { %>
