@@ -21,15 +21,12 @@
   },
   "homepage": "https://github.com/IonicaBizau/dotfiles#readme",
   "blah": {
-    "show_title": false,
     "show_description": false,
     "show_installation": false,
     "show_docs": false,
     "show_usage": false,
+    "title": "dotfiles",
     "installation": [
-      {
-        "h2": "Installation [![Support this project][donate-now]][paypal-donations]"
-      },
       {
         "code": {
           "language": "sh",
@@ -211,7 +208,7 @@
         "</table>"
       ]
     ],
-    "description": [
+    "before_title": [
       {
         "code": {
           "content": [

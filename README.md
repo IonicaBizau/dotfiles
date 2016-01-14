@@ -9,7 +9,8 @@
             This repository contains personal dotfiles of Ionică Bizău.
 ```
 
-## Installation [![Support this project][donate-now]][paypal-donations]
+# dotfiles [![PayPal](https://img.shields.io/badge/%24-paypal-f39c12.svg)][paypal-donations] [![Version](https://img.shields.io/npm/v/ionicabizau-dotfiles.svg)](https://www.npmjs.com/package/ionicabizau-dotfiles) [![Downloads](https://img.shields.io/npm/dt/ionicabizau-dotfiles.svg)](https://www.npmjs.com/package/ionicabizau-dotfiles) [![Get help on Codementor](https://cdn.codementor.io/badges/get_help_github.svg)](https://www.codementor.io/johnnyb?utm_source=github&utm_medium=button&utm_term=johnnyb&utm_campaign=github)
+
 ```sh
 $ wget -qO- http://goo.gl/3owX4S | sh
 # or
