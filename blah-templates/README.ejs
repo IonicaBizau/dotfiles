@@ -23,6 +23,10 @@
 <% isWeb = isWeb || isOnlyWeb; %>
 <% var isCli = IsThere(binPath); %>
 
+<% if (_.pack.blah.generateLicense !== false) { %>
+<%   ExecSync("blah -l mit").toString(); %>
+<% } %>
+
 <% var firstCommitYear = ExecSync("git log --pretty=format:%ad | tail -1 | awk -v N=5 '{print $N}'").toString(); %>
 <% _.pack.blah.license_year = _.pack.blah.license_year || firstCommitYear || new Date().getFullYear(); %>
 <% var mainFile = _.path + "/" + _.pack.main %>
@@ -44,7 +48,7 @@
 <%  if (!parsedGitUrl.owner || !parsedGitUrl.name) { %>
 <%    console.log("Cannot get the owner or the name."); %>
 <%  } %>
-<%  readmeTitle += ` [![Travis](https://img.shields.io/travis/${parsedGitUrl.owner}/${parsedGitUrl.name})](https://travis-ci.org/${parsedGitUrl.owner}/${parsedGitUrl.name}/)`; %>
+<%  readmeTitle += ` [![Travis](https://img.shields.io/travis/${parsedGitUrl.owner}/${parsedGitUrl.name}.svg)](https://travis-ci.org/${parsedGitUrl.owner}/${parsedGitUrl.name}/)`; %>
 <% } %>
 <% readmeTitle += ` [![Version](https://img.shields.io/npm/v/${_.pack.name}.svg)](https://www.npmjs.com/package/${_.pack.name})` %>
 <% readmeTitle += ` [![Downloads](https://img.shields.io/npm/dt/${_.pack.name}.svg)](https://www.npmjs.com/package/${_.pack.name})` %>
