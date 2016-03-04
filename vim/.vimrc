@@ -26,30 +26,53 @@
 " ------------------------------"
 " Plugins
 " ------------------------------"
+"
+set nocompatible              " be iMproved, required
+filetype off                  " required
 
-"NeoBundle Scripts-----------------------------
-if has('vim_starting')
-  set nocompatible
-  set runtimepath+=~/.vim/bundle/neobundle.vim/
-endif
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
-call neobundle#begin(expand('~/.vim/bundle'))
-NeoBundleLazy 'The-NERD-tree', {'augroup' : 'NERDTree'}
-command! NERDTree :call NERDTree()
-function! NERDTree()
-NeoBundleSource The-NERD-tree
-    NERDTree
-endfunction
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'heavenshell/vim-jsdoc'
+Plugin 'Shougo/neosnippet.vim'
+Plugin 'Shougo/neosnippet-snippets'
+Plugin 'flazz/vim-colorschemes'
+Plugin 'mattn/emmet-vim.git'
+Plugin 'Shougo/neocomplcache.vim'
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'tomtom/tlib_vim'
+Plugin 'garbas/vim-snipmate'
+Plugin 'honza/vim-snippets'
+Plugin 'sheerun/vim-polyglot'
+Plugin 'maksimr/vim-jsbeautify'
+Plugin 'einars/js-beautify'
+Plugin 'tpope/vim-unimpaired'
 
-" Let NeoBundle manage NeoBundle
-NeoBundleFetch 'Shougo/neobundle.vim'
-
-NeoBundle 'Shougo/neosnippet.vim'
-NeoBundle 'Shougo/neosnippet-snippets'
 " Plugin key-mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+
+let g:neocomplcache_enable_at_startup = 1
+
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
 
 " SuperTab like snippets behavior.
 imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
@@ -64,20 +87,8 @@ if has('conceal')
   set conceallevel=2 concealcursor=i
 endif
 
-NeoBundle 'kien/ctrlp.vim'
-NeoBundle 'flazz/vim-colorschemes'
-NeoBundle "mattn/emmet-vim.git"
-NeoBundle "Shougo/neocomplcache.vim"
-
-let g:neocomplcache_enable_at_startup = 1
-
-NeoBundle 'Shougo/neosnippet.vim'
-NeoBundle 'Shougo/neosnippet-snippets'
-NeoBundle 'lrvick/Conque-Shell'
-NeoBundle 'heavenshell/vim-jsdoc'
-
 let g:jsdoc_custom_args_hook = {
-  \ 'callback\|cb\|fn': {
+  \ 'callback\|cb': {
   \   'type': '{Function}',
   \   'description': 'The callback function.'
   \ },
@@ -96,26 +107,11 @@ let g:jsdoc_type_hook = {
  \ 'Function': 'The callback function.'
  \ }
 
-
+let g:jsdoc_enable_es6 = 1
 let g:jsdoc_allow_input_prompt = 1
 let g:jsdoc_additional_descriptions = 1
 let g:jsdoc_return_description = 1
-let g:jsdoc_enable_es6 = 1
 nmap <silent> <C-l> <Plug>(jsdoc)
-
-NeoBundle "MarcWeber/vim-addon-mw-utils"
-NeoBundle "tomtom/tlib_vim"
-NeoBundle "garbas/vim-snipmate"
-NeoBundle "honza/vim-snippets"
-NeoBundle "sheerun/vim-polyglot"
-NeoBundle 'junegunn/vim-emoji'
-NeoBundle 'maksimr/vim-jsbeautify'
-NeoBundle 'einars/js-beautify'
-NeoBundle 'tpope/vim-unimpaired'
-
-call neobundle#end()
-NeoBundleCheck
-"End NeoBundle Scripts-------------------------
 
 " ------------------------------"
 " Misc Settings
