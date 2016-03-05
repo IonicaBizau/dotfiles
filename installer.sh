@@ -40,8 +40,8 @@ cp user/.gitconfig ~/
 echo "Copying tmux/.tmux.conf ..."
 cp tmux/.tmux.conf ~/
 
-echo "Installing NeoBundle ..."
-curl https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh | sh
+echo "Installing Vundle"
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 echo "Finished. Cleaning up ..."
 cd ..

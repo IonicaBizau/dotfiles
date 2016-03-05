@@ -39,17 +39,14 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'heavenshell/vim-jsdoc'
 Plugin 'Shougo/neosnippet.vim'
 Plugin 'Shougo/neosnippet-snippets'
+Plugin 'Shougo/neocomplcache.vim'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'mattn/emmet-vim.git'
-Plugin 'Shougo/neocomplcache.vim'
 Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'tomtom/tlib_vim'
-Plugin 'garbas/vim-snipmate'
+Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'maksimr/vim-jsbeautify'
-Plugin 'einars/js-beautify'
-Plugin 'tpope/vim-unimpaired'
 
 " Plugin key-mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -81,11 +78,6 @@ imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 \ "\<Plug>(neosnippet_expand_or_jump)"
 \: "\<TAB>"
-
-" For snippet_complete marker.
-if has('conceal')
-  set conceallevel=2 concealcursor=i
-endif
 
 let g:jsdoc_custom_args_hook = {
   \ 'callback\|cb': {
@@ -243,3 +235,5 @@ nnoremap : ;
 
 " Delete unwanted spaces
 autocmd BufWritePre * :%s/\s\+$//e
+
+autocmd FileType js UltiSnipsAddFiletypes javascript-es6
