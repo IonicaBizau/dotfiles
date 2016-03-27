@@ -43,6 +43,9 @@ cp tmux/.tmux.conf ~/
 echo "Installing Vundle"
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
+echo "Installing NVM"
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh | bash
+
 echo "Finished. Cleaning up ..."
 cd ..
 rm -rf dotfiles
