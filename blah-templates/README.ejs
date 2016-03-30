@@ -1,5 +1,6 @@
 <% _.pack.blah = _.pack.blah || {} %>
 <% require = (function () { var _oldRequire = require; return function (p) { try { return _oldRequire(p); } catch (e) { return _oldRequire("/home/ionicabizau/.blah-templates/node_modules/" + p); } }})(); %>
+<% _.pack.main = _.pack.blah.main || _.pack.main %>
 
 <% // Dependencies %>
 <% var IsThere = require("is-there"); %>
@@ -14,14 +15,20 @@
 <% var parsedGitUrl = GitUrlParse(_.pack.repository.url); %>
 
 <% // Compute the directory paths %>
-<% var binPath = Path.join(_.path, "bin"); %>
 <% var examplesPath = Path.join(_.path, "examples"); %>
 <% var examplePath = Path.join(_.path, "example"); %>
 <% var example = IsThere(examplePath) ? examplePath : IsThere(examplesPath) ? examplesPath : null; %>
 <% var isWeb = IsThere(examplePath + "/index.html"); %>
 <% var isOnlyWeb = _.pack.blah.is_only_web === false ? false : IsThere(process.cwd() + "/index.html"); %>
 <% isWeb = isWeb || isOnlyWeb; %>
+
+<% if (_.pack.bin) { %>
+<% var globalExecutable = Object.keys(_.pack.bin || {})[0]; %>
+<% var binPath = Path.join(_.path, (_.pack.bin || {})[globalExecutable]); %>
+<% console.log("Found executable in: " + binPath); %>
+<% } %>
 <% var isCli = IsThere(binPath); %>
+<% console.log("Is CLI: " + isCli); %>
 
 <% if (_.pack.blah.generateLicense !== false) { %>
 <%   ExecSync("blah -l mit").toString(); %>
@@ -35,7 +42,7 @@
 <% // Create the name and description %>
 <% var readmeTitle = _.pack.name; %>
 <% if (isCli) { %>
-<% readmeTitle = "`$ " + _.pack.name + "`"; %>
+<% readmeTitle = "`$ " + _.pack.name.replace(/\-cli$/g, "") + "`"; %>
 <% } else { %>
 <% readmeTitle = _.pack.blah.title || _.pack.name %>
 <% } %>
@@ -90,7 +97,7 @@
 <% } %>
 <% if (_.pack.blah.show_installation !== false) { %>
 <% if (!isOnlyWeb) { %>
-## Installation
+## :cloud: Installation
 <% } %>
 
 <% // Cli usage %>
@@ -106,16 +113,17 @@ $ npm i -g <%- _.pack.name %>
 <% } %>
 
 
-Then, run `<%- _.pack.name %> --help` and see what the CLI tool can do.
-
-<% if (_.pack.bin) { %>
-<% var cliCommand = Object.keys(_.pack.bin) %>
-<% var cliPath = _.pack.bin[cliCommand] %>
+<% if (_.pack.blah.api) { %>
+:bulb: **ProTip**: If you want to use this package as module, check out [`<%-_.pack.blah.api%>`—the API version of it](http://github.com/IonicaBizau/<%=_.pack.blah.api%>).
 <% } %>
-<% if (IsThere(cliPath)) { %>
-```sh
-$ <%- cliCommand %> --help
-<%- ExecSync(cliPath + " --help", { cwd: process.cwd() }).toString().slice(0, -1) %>
+
+Then, run `<%- globalExecutable %> --help` and see what the CLI tool can do.
+
+
+<% if (isCli) { %>
+```
+$ <%- globalExecutable %> --help
+<%- ExecSync(binPath + " --help", { cwd: process.cwd() }).toString().slice(0, -1) %>
 ```
 <% } %>
 
@@ -126,6 +134,13 @@ $ <%- cliCommand %> --help
 <% var srcPath = Path.join(_.path, "src"); %>
 <% var distDir = IsThere(distPath) ? "dist" : IsThere(srcPath) ? "src" : "lib"; %>
 Check out the [`<%-distDir%>`](/<%- distDir %>) directory to download the needed files and include them on your page.
+
+If you're using this module in a CommonJS environment, you can install it from `npm` and `require` it:
+
+```sh
+$ npm i --save <%- _.pack.name %>
+```
+
 <% } %>
 <% } else { %>
 <% if (_.pack.blah.installation_command) { %>
@@ -134,6 +149,11 @@ Check out the [`<%-distDir%>`](/<%- distDir %>) directory to download the needed
 ```sh
 $ npm i <%- _.pack.blah.is_dev ? "--save-dev" : "--save" %> <%- _.pack.name %>
 ```
+
+<% if (_.pack.blah.cli) { %>
+:bulb: **ProTip**: You can install the [cli version of this module](http://github.com/IonicaBizau/<%=_.pack.blah.cli%>) by running `npm i -g <%- _.pack.blah.cli %>`
+<% } %>
+
 <% } %>
 <% } %>
 <% } %>
@@ -151,7 +171,7 @@ $ npm i <%- _.pack.blah.is_dev ? "--save-dev" : "--save" %> <%- _.pack.name %>
 <% } %>
 
 <% if (example) { %>
-## Example
+## :clipboard: Example
 
 <% if (isCli) { %>
 Here is an example how to use this package as library. To install it locally, as library, you can do that using `npm`:
@@ -163,7 +183,13 @@ $ npm i <%- _.pack.blah.is_dev ? "--save-dev" : "--save" %> <%- _.pack.name %>
 <% } %>
 
 <% var exStr = Fs.readFileSync(exStrPath, "utf-8"); %>
-<% exStr = exStr.replace("../lib", _.pack.name).trimRight() %>
+<% exStr = exStr.replace(/require\(\"\.\.\/?(lib)?\"\)/, `require("${_.pack.name}")`).trimRight() %>
+<%
+    var splits = exStr.split("\n");
+    if (/use strict/.test(splits[0].trim())) {
+        exStr = splits.slice(1).join("\n").trim();
+    }
+%>
 
 ```js
 <%- exStr %>
@@ -184,7 +210,7 @@ $ npm i <%- _.pack.blah.is_dev ? "--save-dev" : "--save" %> <%- _.pack.name %>
 <% if (!isOnlyWeb) { %>
 
 <% if (_.pack.blah.show_docs !== false) { %>
-## Documentation
+## :memo: Documentation
 <% } %>
 <% if (isCli) { %>
 <% if (_.pack.blah.show_docs !== false) { %>
@@ -198,20 +224,20 @@ For full API reference, see the [DOCUMENTATION.md][docs] file.
 <% } %>
 <% if (_.pack.blah.documentation) { %>
 <% if (_.pack.blah.show_docs === false) { %>
-## Documentation
+## :memo: Documentation
 <% } %>
 <%-JsonToMarkdown(_.pack.blah.documentation) %>
 <% } %>
 
 <% // Press %>
 <% if (_.pack.blah.press) { %>
-## Press Highlights
+## :newspaper: Press Highlights
 <%-JsonToMarkdown(_.pack.blah.press)%>
 <% } %>
 
 <% // How to contribute %>
 <% if (_.pack.blah.show_contributing !== false) { %>
-## How to contribute
+## :yum: How to contribute
 Have an idea? Found a bug? See [how to contribute][contributing].
 <% } %>
 
@@ -221,13 +247,13 @@ Have an idea? Found a bug? See [how to contribute][contributing].
 
 <% // Thanks %>
 <% if (_.pack.blah.thanks) { %>
-## Thanks
+## :cake: Thanks
 <%-JsonToMarkdown(_.pack.blah.thanks)%>
 <% } %>
 
 <% if (!isOnlyWeb && _.pack.blah.show_usage !== false && !notALibrary) { %>
-## Where is this library used?
-If you are using this library in one of your projects, add it in this list. :sparkles:
+
+<% var foundUsages = false; %>
 
 <% // Who used this? %>
 <% var Deasync = require("deasync"); %>
@@ -235,27 +261,43 @@ If you are using this library in one of your projects, add it in this list. :spa
 <% var Dependents = Deasync(require("package-dependents")); %>
 <% try { %>
 <%  var packages = Dependents(_.pack.name); %>
-<% for (var i in packages) { %>
-<%   var c = packages[i]; %>
-<%   c.homepage = c.homepage || ("https://npmjs.com/package/" + c.name); %>
- - [`<%-c.name%>`](<%-c.homepage%>)<% if (c.author && c.author.name && (!c.author.email || c.author.email.split("@")[0] !== "bizauionica")) { %> by <%-c.author.name%><% } %>
-<% } %>
+<%  if (packages.length) { foundUsages = true; console.log("Found dependents."); } %>
 <% } catch (e) { console.log(e); } %>
 
 <% if (_.pack.blah.usages) { %>
-<%-JsonToMarkdown(_.pack.blah.usages)%>
+<% foundUsages = true; %>
 <% } %>
 <% } %>
 
+<% if (foundUsages) { %>
+## :dizzy: Where is this library used?
+If you are using this library in one of your projects, add it in this list. :sparkles:
+
+<% packages = packages || []; %>
+<% for (var i in packages) {
+    var c = packages[i];
+    c.homepage = c.homepage || ("https://npmjs.com/package/" + c.name);
+    c.authorIsNotMe = c.author && c.author.name && (!c.author.email || c.author.email.split("@")[0] !== "bizauionica");
+    if (c.author && c.author.name) {
+        c.__by = c.author.name;
+        if (c.author.website) {
+            c.__by = "[" + c.__by + "](" + c.author.website + ")";
+        }
+    }
+    console.log(c);
+    %>
+ - [`<%-c.name%>`](<%-c.homepage%>)<% if (c.authorIsNotMe) { %> (by <%-c.__by%>)<% } %>—<%-c.description%><% }%><% if (_.pack.blah.usages) { %><%-JsonToMarkdown(_.pack.blah.usages)%><% }%>
+<% }%>
+
 <% if (_.pack.blah.related) { %>
-## Related
+## :sparkles: Related
 <%-JsonToMarkdown(_.pack.blah.related)%>
 <% } %>
 
 
 <% // License information %>
 <% if (_.pack.blah.show_license !== false) { %>
-## License
+## :scroll: License
 <% if (_.pack.blah.license) { %>
 <%-JsonToMarkdown(_.pack.blah.license)%>
 <% } else { %>
