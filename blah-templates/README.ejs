@@ -1,138 +1,166 @@
-<% _.pack.blah = _.pack.blah || {} %>
-<% require = (function () { var _oldRequire = require; return function (p) { try { return _oldRequire(p); } catch (e) { return _oldRequire("/home/ionicabizau/.blah-templates/node_modules/" + p); } }})(); %>
-<% _.pack.main = _.pack.blah.main || _.pack.main %>
+<%
+// Initialize blah
+_.pack.blah = _.pack.blah || {};
 
-<% // Dependencies %>
-<% var IsThere = require("is-there"); %>
-<% var JsonToMarkdown = require("json2md"); %>
-<% var Fs = require("fs"); %>
-<% var Path = require("path"); %>
-<% var Ul = require("ul"); %>
-<% var ParseAuthor = require("parse-author"); %>
-<% var pAuthor = ParseAuthor(_.pack.author); %>
-<% var ExecSync = require("child_process").execSync; %>
-<% var GitUrlParse = require("git-url-parse"); %>
-<% var parsedGitUrl = GitUrlParse(_.pack.repository.url); %>
+// Override the require method to require files from the current dir
+require = (function () {
+    var _oldRequire = require;
+    return function (p) {
+        try {
+            return _oldRequire(p);
+        } catch (e) {
+            return _oldRequire("/home/ionicabizau/.blah-templates/node_modules/" + p);
+        }
+    }
+})();
+_.pack.main = _.pack.blah.main || _.pack.main;
 
-<% // Compute the directory paths %>
-<% var examplesPath = Path.join(_.path, "examples"); %>
-<% var examplePath = Path.join(_.path, "example"); %>
-<% var example = IsThere(examplePath) ? examplePath : IsThere(examplesPath) ? examplesPath : null; %>
-<% var isWeb = IsThere(examplePath + "/index.html"); %>
-<% var isOnlyWeb = _.pack.blah.is_only_web === false ? false : IsThere(process.cwd() + "/index.html"); %>
-<% isWeb = isWeb || isOnlyWeb; %>
+// Dependencies
+var IsThere = require("is-there")
+  , JsonToMarkdown = require("json2md")
+  , Fs = require("fs")
+  , Path = require("path")
+  , Ul = require("ul")
+  , ParseAuthor = require("parse-author")
+  , pAuthor = ParseAuthor(_.pack.author)
+  , ExecSync = require("child_process").execSync
+  , GitUrlParse = require("git-url-parse")
+  , parsedGitUrl = GitUrlParse(_.pack.repository.url)
+  , Deasync = require("deasync")
+  , packageDependents = require("package-dependents")
+  ;
 
-<% if (_.pack.bin) { %>
-<% var globalExecutable = Object.keys(_.pack.bin || {})[0]; %>
-<% var binPath = Path.join(_.path, (_.pack.bin || {})[globalExecutable]); %>
-<% console.log("Found executable in: " + binPath); %>
-<% } %>
-<% var isCli = IsThere(binPath); %>
-<% console.log("Is CLI: " + isCli); %>
+// Compute the directory paths
+var examplesPath = Path.join(_.path, "examples")
+  , examplePath = Path.join(_.path, "example")
+  , example = IsThere(examplePath) ? examplePath : IsThere(examplesPath) ? examplesPath : null
+  , isWeb = IsThere(examplePath + "/index.html")
+  , isOnlyWeb = _.pack.blah.is_only_web === false ? false : IsThere(process.cwd() + "/index.html")
+  ;
 
-<% if (_.pack.blah.generateLicense !== false) { %>
-<%   ExecSync("blah -l mit").toString(); %>
-<% } %>
+isWeb = isWeb || isOnlyWeb;
 
-<% var firstCommitYear = ExecSync("git log --pretty=format:%ad | tail -1 | awk -v N=5 '{print $N}'").toString(); %>
-<% _.pack.blah.license_year = _.pack.blah.license_year || firstCommitYear || new Date().getFullYear(); %>
-<% var mainFile = _.path + "/" + _.pack.main %>
-<% var notALibrary = !IsThere(mainFile) %>
+if (_.pack.bin) {
+    var globalExecutable = Object.keys(_.pack.bin || {})[0];
+    var binPath = Path.join(_.path, (_.pack.bin || {})[globalExecutable]);
+    console.log("Found executable in: " + binPath);
+}
 
-<% // Create the name and description %>
-<% var readmeTitle = _.pack.name; %>
-<% if (isCli) { %>
-<% readmeTitle = "`$ " + _.pack.name.replace(/\-cli$/g, "") + "`"; %>
-<% } else { %>
-<% readmeTitle = _.pack.blah.title || _.pack.name %>
-<% } %>
+var isCli = IsThere(binPath);
+console.log("Is CLI: " + isCli);
 
-<% var authorIsMe = /bizauionica/.test(_.pack.author); %>
-<% if (authorIsMe) { %>
-<%  readmeTitle += " [![PayPal](https://img.shields.io/badge/%24-paypal-f39c12.svg)][paypal-donations]"; %>
-<% } %>
-<% if (IsThere(_.path + "/.travis.yml")) { %>
-<%  if (!parsedGitUrl.owner || !parsedGitUrl.name) { %>
-<%    console.log("Cannot get the owner or the name."); %>
-<%  } %>
-<%  readmeTitle += ` [![Travis](https://img.shields.io/travis/${parsedGitUrl.owner}/${parsedGitUrl.name}.svg)](https://travis-ci.org/${parsedGitUrl.owner}/${parsedGitUrl.name}/)`; %>
-<% } %>
-<% readmeTitle += ` [![Version](https://img.shields.io/npm/v/${_.pack.name}.svg)](https://www.npmjs.com/package/${_.pack.name})` %>
-<% readmeTitle += ` [![Downloads](https://img.shields.io/npm/dt/${_.pack.name}.svg)](https://www.npmjs.com/package/${_.pack.name})` %>
-<% if (authorIsMe) { %>
-<%  readmeTitle += " [![Get help on Codementor](https://cdn.codementor.io/badges/get_help_github.svg)](https://www.codementor.io/johnnyb?utm_source=github&utm_medium=button&utm_term=johnnyb&utm_campaign=github)" %>
-<% } %>
+if (_.pack.blah.generateLicense !== false) {
+  ExecSync("blah -l mit").toString();
+}
 
-<% // Heading image %>
-<% if (_.pack.blah.h_img) { %>
+var firstCommitYear = ExecSync("git log --pretty=format:%ad | tail -1 | awk -v N=5 '{print $N}'").toString();
+_.pack.blah.license_year = _.pack.blah.license_year || firstCommitYear || new Date().getFullYear();
+var mainFile = _.path + "/" + _.pack.main
+var notALibrary = !IsThere(mainFile)
+
+// Create the name and description
+var readmeTitle = _.pack.name;
+if (isCli) {
+    readmeTitle = "`$ " + _.pack.name.replace(/\-cli$/g, "") + "`";
+} else {
+    readmeTitle = _.pack.blah.title || _.pack.name
+}
+
+var authorIsMe = /bizauionica/.test(_.pack.author);
+if (authorIsMe) {
+    readmeTitle += " [![PayPal](https://img.shields.io/badge/%24-paypal-f39c12.svg)][paypal-donations]";
+}
+
+if (IsThere(_.path + "/.travis.yml")) {
+    if (!parsedGitUrl.owner || !parsedGitUrl.name) {
+        console.log("Cannot get the owner or the name.");
+    }
+    readmeTitle += ` [![Travis](https://img.shields.io/travis/${parsedGitUrl.owner}/${parsedGitUrl.name}.svg)](https://travis-ci.org/${parsedGitUrl.owner}/${parsedGitUrl.name}/)`;
+}
+
+readmeTitle += ` [![Version](https://img.shields.io/npm/v/${_.pack.name}.svg)](https://www.npmjs.com/package/${_.pack.name})`
+readmeTitle += ` [![Downloads](https://img.shields.io/npm/dt/${_.pack.name}.svg)](https://www.npmjs.com/package/${_.pack.name})`
+if (authorIsMe) {
+    readmeTitle += " [![Get help on Codementor](https://cdn.codementor.io/badges/get_help_github.svg)](https://www.codementor.io/johnnyb?utm_source=github&utm_medium=button&utm_term=johnnyb&utm_campaign=github)";
+}
+
+// Heading image
+if (_.pack.blah.h_img) { %>
 [![<%- _.pack.name %>](<%- _.pack.blah.h_img %>)](<%-_.pack.blah.h_url || "#"%>)
-<% } %>
+<% }
 
-<% // Blah custom description %>
-<% if (_.pack.blah.before_title) { %>
+// Blah custom description
+if (_.pack.blah.before_title) { %>
 <%-JsonToMarkdown(_.pack.blah.before_title)%>
-<% } %>
+<% }
 
-<% // Package name and description %>
-<% if (_.pack.blah.show_title !== false) { %>
+// Package name and description
+if (_.pack.blah.show_title !== false) { %>
 # <%-readmeTitle%>
-<% } %>
-<% if (_.pack.blah.show_description !== false) { %>
+<% }
+
+// Description
+if (_.pack.blah.show_description !== false) { %>
 > <%-_.pack.description%>
-<% } %>
+<% }
 
-<% // Blah custom description %>
-<% if (_.pack.blah.description) { %>
+// Blah custom description
+if (_.pack.blah.description) { %>
 <%-JsonToMarkdown(_.pack.blah.description)%>
-<% } %>
+<% }
 
-<% // Example image %>
-<% if (_.pack.blah.ex_img) { %>
+// Example image
+if (_.pack.blah.ex_img) { %>
 [![<%- _.pack.name %>](<%- _.pack.blah.ex_img %>)](<%-_.pack.blah.ex_url || "#"%>)
-<% } %>
+<% }
 
-<% // INSTALLATION %>
-<% if (_.pack.blah.show_installation === undefined && notALibrary) { %>
-<%  _.pack.blah.show_installation = false; %>
-<% } %>
-<% if (_.pack.blah.show_installation !== false) { %>
-<% if (!isOnlyWeb) { %>
+// INSTALLATION
+if (_.pack.blah.show_installation === undefined && notALibrary) {
+  _.pack.blah.show_installation = false;
+}
+
+if (_.pack.blah.show_installation !== false) {
+    if (!isOnlyWeb) { %>
 ## :cloud: Installation
-<% } %>
+    <% }
 
-<% // Cli usage %>
-<% if (isCli) { %>
+    // Cli usage
+    if (isCli) { %>
 You can install the package globally and use it as command line tool:
 
 <% if (_.pack.blah.installation_command) { %>
-<%- JsonToMarkdown(_.pack.blah.installation_command, undefined, "code"); %>
-<% } else { %>
+    <%- JsonToMarkdown(_.pack.blah.installation_command, undefined, "code"); %>
+    <% } else { %>
 ```sh
 $ npm i -g <%- _.pack.name %>
 ```
-<% } %>
+    <% }
 
-
-<% if (_.pack.blah.api) { %>
+    // Api version of the module
+    if (_.pack.blah.api) { %>
 :bulb: **ProTip**: If you want to use this package as module, check out [`<%-_.pack.blah.api%>`—the API version of it](http://github.com/IonicaBizau/<%=_.pack.blah.api%>).
-<% } %>
+    <% } %>
 
 Then, run `<%- globalExecutable %> --help` and see what the CLI tool can do.
 
-
-<% if (isCli) { %>
+    <%
+    // Check if it's CLI
+    if (isCli) { %>
 ```
 $ <%- globalExecutable %> --help
 <%- ExecSync(binPath + " --help", { cwd: process.cwd() }).toString().slice(0, -1) %>
 ```
-<% } %>
+    <% }
 
-<% } else if (isWeb) { %>
-<% if (!isOnlyWeb) { %>
+    } else if (isWeb) {
+        if (!isOnlyWeb) {
 
-<% var distPath = Path.join(_.path, "dist"); %>
-<% var srcPath = Path.join(_.path, "src"); %>
-<% var distDir = IsThere(distPath) ? "dist" : IsThere(srcPath) ? "src" : "lib"; %>
+        var distPath = Path.join(_.path, "dist")
+          , srcPath = Path.join(_.path, "src")
+          , distDir = IsThere(distPath) ? "dist" : IsThere(srcPath) ? "src" : "lib"
+          ;
+    %>
+
 Check out the [`<%-distDir%>`](/<%- distDir %>) directory to download the needed files and include them on your page.
 
 If you're using this module in a CommonJS environment, you can install it from `npm` and `require` it:
@@ -141,172 +169,172 @@ If you're using this module in a CommonJS environment, you can install it from `
 $ npm i --save <%- _.pack.name %>
 ```
 
-<% } %>
-<% } else { %>
-<% if (_.pack.blah.installation_command) { %>
+        <% }
+    } else {
+        if (_.pack.blah.installation_command) { %>
 <%- JsonToMarkdown(_.pack.blah.installation_command, undefined, "code"); %>
-<% } else { %>
+        <% } else { %>
 ```sh
 $ npm i <%- _.pack.blah.is_dev ? "--save-dev" : "--save" %> <%- _.pack.name %>
 ```
 
-<% if (_.pack.blah.cli) { %>
+            <% if (_.pack.blah.cli) { %>
 :bulb: **ProTip**: You can install the [cli version of this module](http://github.com/IonicaBizau/<%=_.pack.blah.cli%>) by running `npm i -g <%- _.pack.blah.cli %>`
-<% } %>
+            <% }
+          }
+    }
+}
 
-<% } %>
-<% } %>
-<% } %>
-
-<% // Blah custom installation (json2md) %>
-<% if (_.pack.blah.installation) { %>
+// Blah custom installation (json2md)
+if (_.pack.blah.installation) { %>
 <%-JsonToMarkdown(_.pack.blah.installation)%>
-<% } %>
+<% }
 
-<% // Show the example if there is one %>
-<% if (example) { %>
-<% var exStrPath = Path.join(example, "index.js"); %>
-<% if (!IsThere(exStrPath)) { %>
-<%   example = null; %>
-<% } %>
+// Show the example if there is one
+if (example) {
+    var exStrPath = Path.join(example, "index.js");
+    if (!IsThere(exStrPath)) {
+      example = null;
+    }
 
-<% if (example) { %>
+    if (example) { %>
 ## :clipboard: Example
 
-<% if (isCli) { %>
+        <% if (isCli) { %>
 Here is an example how to use this package as library. To install it locally, as library, you can do that using `npm`:
 
 ```sh
 $ npm i <%- _.pack.blah.is_dev ? "--save-dev" : "--save" %> <%- _.pack.name %>
 ```
 
-<% } %>
+        <% }
 
-<% var exStr = Fs.readFileSync(exStrPath, "utf-8"); %>
-<% exStr = exStr.replace(/require\(\"\.\.\/?(lib)?\"\)/, `require("${_.pack.name}")`).trimRight() %>
-<%
-    var splits = exStr.split("\n");
-    if (/use strict/.test(splits[0].trim())) {
-        exStr = splits.slice(1).join("\n").trim();
-    }
-%>
+        var exStr = Fs.readFileSync(exStrPath, "utf-8");
+        exStr = exStr.replace(/require\(\"\.\.\/?(lib)?\"\)/, `require("${_.pack.name}")`).trimRight();
+        var splits = exStr.split("\n");
+        if (/use strict/.test(splits[0].trim())) {
+            exStr = splits.slice(1).join("\n").trim();
+        } %>
 
 ```js
 <%- exStr %>
 ```
-<% } %>
-<% } %>
+    <% }
+}
 
-<% // Blah custom example (json2md) %>
-<% if (_.pack.blah.example) { %>
+// Blah custom example (json2md)
+if (_.pack.blah.example) { %>
 <%-JsonToMarkdown(_.pack.blah.example)%>
-<% } %>
+<% }
 
-<% // Documentation %>
-<% if (_.pack.blah.show_docs === undefined && docs.split("\n").length <= 6) { %>
-<%  _.pack.blah.show_docs = false; %>
-<% } %>
-<% if (_.pack.blah.show_docs !== false) { %>
-<% if (!isOnlyWeb) { %>
+// Documentation
+if (_.pack.blah.show_docs === undefined && docs.split("\n").length <= 6) {
+    _.pack.blah.show_docs = false;
+}
 
-<% if (_.pack.blah.show_docs !== false) { %>
+if (_.pack.blah.show_docs !== false) {
+    if (!isOnlyWeb) {
+
+        if (_.pack.blah.show_docs !== false) { %>
 ## :memo: Documentation
-<% } %>
-<% if (isCli) { %>
-<% if (_.pack.blah.show_docs !== false) { %>
+        <% }
+        if (isCli) {
+            if (_.pack.blah.show_docs !== false) { %>
 For full API reference, see the [DOCUMENTATION.md][docs] file.
-<% } %>
-<% } else if (_.pack.blah.show_jsdocs !== false) { %>
-<% docs = docs.split("\n").slice(3).join("\n"); %>
+            <% }
+        } else if (_.pack.blah.show_jsdocs !== false) {
+            docs = docs.split("\n").slice(3).join("\n"); %>
 <%- docs %>
-<% } %>
-<% } %>
-<% } %>
-<% if (_.pack.blah.documentation) { %>
-<% if (_.pack.blah.show_docs === false) { %>
-## :memo: Documentation
-<% } %>
-<%-JsonToMarkdown(_.pack.blah.documentation) %>
-<% } %>
+        <% }
+    }
+}
 
-<% // Press %>
-<% if (_.pack.blah.press) { %>
+if (_.pack.blah.documentation) {
+    if (_.pack.blah.show_docs === false) { %>
+## :memo: Documentation
+    <% } %>
+<%-JsonToMarkdown(_.pack.blah.documentation) %>
+<% }
+
+// Press
+if (_.pack.blah.press) { %>
 ## :newspaper: Press Highlights
 <%-JsonToMarkdown(_.pack.blah.press)%>
-<% } %>
+<% }
 
-<% // How to contribute %>
-<% if (_.pack.blah.show_contributing !== false) { %>
+// How to contribute
+if (_.pack.blah.show_contributing !== false) { %>
 ## :yum: How to contribute
 Have an idea? Found a bug? See [how to contribute][contributing].
-<% } %>
+<% }
 
-<% if (_.pack.blah.contributing) { %>
-<%-JsonToMarkdown(_.pack.blah.contributing)%>
-<% } %>
+if (_.pack.blah.contributing) { %>
+<%- JsonToMarkdown(_.pack.blah.contributing) %>
+<% }
 
-<% // Thanks %>
-<% if (_.pack.blah.thanks) { %>
+// Thanks
+if (_.pack.blah.thanks) { %>
 ## :cake: Thanks
-<%-JsonToMarkdown(_.pack.blah.thanks)%>
-<% } %>
+<%- JsonToMarkdown(_.pack.blah.thanks) %>
+<% }
 
-<% if (!isOnlyWeb && _.pack.blah.show_usage !== false && !notALibrary) { %>
+if (!isOnlyWeb && _.pack.blah.show_usage !== false && !notALibrary) {
 
-<% var foundUsages = false; %>
+    var foundUsages = false;
 
-<% // Who used this? %>
-<% var Deasync = require("deasync"); %>
-<% console.log("Fetching the dependents. This may take a while") %>
-<% var Dependents = Deasync(require("package-dependents")); %>
-<% try { %>
-<%  var packages = Dependents(_.pack.name); %>
-<%  if (packages.length) { foundUsages = true; console.log("Found dependents."); } %>
-<% } catch (e) { console.log(e); } %>
+    // Who used this?
+    console.log("Fetching the dependents. This may take a while")
+    var Dependents = Deasync(packageDependents);
+    try {
+        var packages = Dependents(_.pack.name);
+        if (packages.length) { foundUsages = true; console.log("Found dependents."); }
+    } catch (e) { console.log(e); }
 
-<% if (_.pack.blah.usages) { %>
-<% foundUsages = true; %>
-<% } %>
-<% } %>
+    if (_.pack.blah.usages) {
+        foundUsages = true;
+    }
+}
 
-<% if (foundUsages) { %>
+if (foundUsages) { %>
 ## :dizzy: Where is this library used?
 If you are using this library in one of your projects, add it in this list. :sparkles:
 
-<% packages = packages || []; %>
-<% for (var i in packages) {
-    var c = packages[i];
-    c.homepage = c.homepage || ("https://npmjs.com/package/" + c.name);
-    c.authorIsNotMe = c.author && c.author.name && (!c.author.email || c.author.email.split("@")[0] !== "bizauionica");
-    if (c.author && c.author.name) {
-        c.__by = c.author.name;
-        if (c.author.website) {
-            c.__by = "[" + c.__by + "](" + c.author.website + ")";
-        }
-    }
-    console.log(c);
-    %>
- - [`<%-c.name%>`](<%-c.homepage%>)<% if (c.authorIsNotMe) { %> (by <%-c.__by%>)<% } %>—<%-c.description%><% }%><% if (_.pack.blah.usages) { %><%-JsonToMarkdown(_.pack.blah.usages)%><% }%>
+<%
+    packages = packages || [];
+    for (var i in packages) {
+        var c = packages[i];
+        c.homepage = c.homepage || ("https://npmjs.com/package/" + c.name);
+        c.authorIsNotMe = c.author && c.author.name && (!c.author.email || c.author.email.split("@")[0] !== "bizauionica");
+        if (c.author && c.author.name) {
+            c.__by = c.author.name;
+            if (c.author.website) {
+                c.__by = "[" + c.__by + "](" + c.author.website + ")";
+            }
+        } %>
+- [`<%-c.name%>`](<%-c.homepage%>)<% if (c.authorIsNotMe) { %> (by <%- c.__by- %>)<% } %>—<%- c.description -%>
 <% }%>
+<% if (_.pack.blah.usages) { -%>
+    <%-JsonToMarkdown(_.pack.blah.usages)%>
+<% }
+}
 
-<% if (_.pack.blah.related) { %>
+if (_.pack.blah.related) { %>
 ## :sparkles: Related
-<%-JsonToMarkdown(_.pack.blah.related)%>
-<% } %>
+<%- JsonToMarkdown(_.pack.blah.related) %>
+<% }
 
-
-<% // License information %>
-<% if (_.pack.blah.show_license !== false) { %>
+// License information
+if (_.pack.blah.show_license !== false) { %>
 ## :scroll: License
-<% if (_.pack.blah.license) { %>
+    <% if (_.pack.blah.license) { %>
 <%-JsonToMarkdown(_.pack.blah.license)%>
-<% } else { %>
+    <% } else { %>
 [<%- _.pack.license %>][license] © [<%- pAuthor.name %>][website]
-<% } %>
-<% } %>
+    <% }
+}
 
-<% // Links %>
-<% if (authorIsMe) { %>
+// Links
+if (authorIsMe) { %>
 [paypal-donations]: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=RVXDDLKKLQRJW
 [donate-now]: http://i.imgur.com/6cMbHOC.png
 <% } %>
