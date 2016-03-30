@@ -119,10 +119,6 @@ fi
 # fi
 export TERM=xterm-256color
 
-# Engine
-export ENGINE_APPS="/home/ionicabizau/Documents/_engineApps/"
-export ENGINE_DIR=$ENGINE_APPS/engine/
-
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
 # ASCII Magic
@@ -134,6 +130,14 @@ ghclone () {
     git clone git@github.com:$GITHUB_USERNAME/$1.git
 }
 
+xp () {
+    xclip -selection clipboard -o
+}
+
+xcp () {
+    xclip -selection clipboard
+}
+
 # Git
 export GIT_AUTHOR_NAME="Ionică Bizău"
 export GIT_AUTHOR_EMAIL=bizauionica@gmail.com
@@ -141,3 +145,8 @@ export GITHUB_USERNAME='IonicaBizau'
 
 # Add Node path to $PATH
 export PATH=$HOME/.node/bin:$PATH
+
+export NVM_DIR="/home/ionicabizau/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+alias ic="git add . -A; git commit -m 'Initial commit.'"
