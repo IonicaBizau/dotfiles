@@ -301,6 +301,7 @@ If you are using this library in one of your projects, add it in this list. :spa
 
 <%
     packages = packages || [];
+    var strPacks = [];
     for (var i in packages) {
         var c = packages[i];
         c.homepage = c.homepage || ("https://npmjs.com/package/" + c.name);
@@ -310,11 +311,18 @@ If you are using this library in one of your projects, add it in this list. :spa
             if (c.author.website) {
                 c.__by = "[" + c.__by + "](" + c.author.website + ")";
             }
-        } %>
-- [`<%-c.name%>`](<%-c.homepage%>)<% if (c.authorIsNotMe) { %> (by <%- c.__by- %>)<% } %>—<%- c.description -%>
-<% }%>
+        }
+        strPacks.push(
+            " - [`" + c.name + "`]"
+          + "(" + c.homepage + ")"
+          + (c.authorIsNotMe ? " (by " + c.__by + ")" : "")
+          + "—" + c.description
+        );
+    }
+%>
+<%- strPacks.join("\n"); -%>
 <% if (_.pack.blah.usages) { -%>
-    <%-JsonToMarkdown(_.pack.blah.usages)%>
+<%-JsonToMarkdown(_.pack.blah.usages) -%>
 <% }
 }
 
