@@ -1,3 +1,4 @@
+
 ```
                       .___      __    _____.__.__
                     __| _/_____/  |__/ ____\__|  |   ____   ______
@@ -171,10 +172,11 @@ curl https://raw.githubusercontent.com/IonicaBizau/dotfiles/master/apps/banish40
 ## :yum: How to contribute
 Have an idea? Found a bug? See [how to contribute][contributing].
 
+
 ## :scroll: License
-    
+
 [MIT][license] © [Ionică Bizău][website]
-    
+
 [paypal-donations]: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=RVXDDLKKLQRJW
 [donate-now]: http://i.imgur.com/6cMbHOC.png
 
