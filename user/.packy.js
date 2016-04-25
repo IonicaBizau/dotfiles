@@ -5,6 +5,17 @@ const isThere = require("is-there");
 module.exports = {
     author: "Ionică Bizău <bizauionica@gmail.com> (http://ionicabizau.net)"
   , license: "MIT"
+  , files: [
+        "bin/"
+      , "app/"
+      , "lib/"
+      , "dist/"
+      , "src/"
+      , "resources/"
+      , "menu/"
+      , "cli.js"
+      , "index.js"
+    ]
   , main: val => {
         if (isThere(val)) {
             return val;
