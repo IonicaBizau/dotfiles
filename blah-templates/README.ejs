@@ -30,6 +30,13 @@ var IsThere = require("is-there")
   , packageDependents = require("package-dependents")
   ;
 
+if (~process.argv.indexOf("-l")) {
+    console.log("Generating .travis.yml");
+    Fs.writeFile(".travis.yml", `language: node_js
+node_js:
+    - 4`);
+}
+
 // Compute the directory paths
 var examplesPath = Path.join(_.path, "examples")
   , examplePath = Path.join(_.path, "example")
