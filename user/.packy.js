@@ -13,6 +13,7 @@ module.exports = {
       , "src/"
       , "resources/"
       , "menu/"
+      , "scripts/"
       , "cli.js"
       , "index.js"
     ]
