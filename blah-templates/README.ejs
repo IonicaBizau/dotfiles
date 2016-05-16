@@ -2,6 +2,8 @@
 // Initialize blah
 _.pack.blah = _.pack.blah || {};
 
+var Ul = require("ul")
+
 // Override the require method to require files from the current dir
 require = (function () {
     var _oldRequire = require;
@@ -9,7 +11,7 @@ require = (function () {
         try {
             return _oldRequire(p);
         } catch (e) {
-            return _oldRequire("/home/ionicabizau/.blah-templates/node_modules/" + p);
+            return _oldRequire(Ul.home() + "/.blah-templates/node_modules/" + p);
         }
     }
 })();
@@ -20,7 +22,6 @@ var IsThere = require("is-there")
   , JsonToMarkdown = require("json2md")
   , Fs = require("fs")
   , Path = require("path")
-  , Ul = require("ul")
   , ParseAuthor = require("parse-author")
   , pAuthor = ParseAuthor(_.pack.author)
   , ExecSync = require("child_process").execSync
@@ -28,7 +29,16 @@ var IsThere = require("is-there")
   , parsedGitUrl = GitUrlParse(_.pack.repository.url)
   , Deasync = require("deasync")
   , packageDependents = require("package-dependents")
+  , packageJson = require("package-json")
   ;
+
+function getPackInfo (name, cb) {
+    packageJson(name).then(function (p) {
+        cb(null, p);
+    }).catch(x => cb(x));
+}
+
+getPackInfo = Deasync(getPackInfo);
 
 if (~process.argv.indexOf("-l")) {
     console.log("Generating .travis.yml");
@@ -335,7 +345,19 @@ If you are using this library in one of your projects, add it in this list. :spa
 <% }
 }
 
-if (_.pack.blah.related) { %>
+if (_.pack.blah.related) {
+    if (Array.isArray(_.pack.blah.related)) {
+        _.pack.blah.related = { ul: _.pack.blah.related };
+    }
+
+    if (Array.isArray(_.pack.blah.related.ul)) {
+        _.pack.blah.related.ul = _.pack.blah.related.ul.map(c => {
+            if (typeof c !== "string" || ~c.indexOf(" ")) { return; }
+            var pack = getPackInfo(c);
+            return "[`" + pack.name + "`](" + pack.homepage + ")—" + pack.description;
+        });
+    }
+%>
 ## :sparkles: Related
 <%- JsonToMarkdown(_.pack.blah.related) %>
 <% }
