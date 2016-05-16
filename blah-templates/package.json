@@ -1,0 +1,21 @@
+{
+  "name": "blah-templates-deps",
+  "version": "1.0.0",
+  "description": "<% // Initialize blah _.pack.blah = _.pack.blah || {};",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "deasync": "^0.1.6",
+    "git-url-parse": "^6.0.2",
+    "is-there": "^4.3.2",
+    "json2md": "^1.5.1",
+    "package-dependents": "^1.2.2",
+    "package-json": "^2.3.2",
+    "parse-author": "^1.0.0",
+    "ul": "^5.2.2"
+  }
+}
