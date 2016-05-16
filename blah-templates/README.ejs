@@ -83,9 +83,12 @@ if (isCli) {
     readmeTitle = _.pack.blah.title || _.pack.name
 }
 
+readmeTitle += "\n\n";
+
 var authorIsMe = /bizauionica/.test(_.pack.author);
 if (authorIsMe) {
     readmeTitle += " [![PayPal](https://img.shields.io/badge/%24-paypal-f39c12.svg)][paypal-donations]";
+    readmeTitle += " [![AMA](https://img.shields.io/badge/ask%20me-anything-1abc9c.svg)](https://github.com/IonicaBizau/ama)";
 }
 
 if (IsThere(_.path + "/.travis.yml")) {
@@ -146,8 +149,8 @@ if (_.pack.blah.show_installation !== false) {
 You can install the package globally and use it as command line tool:
 
 <% if (_.pack.blah.installation_command) { %>
-    <%- JsonToMarkdown(_.pack.blah.installation_command, undefined, "code"); %>
-    <% } else { %>
+<%- JsonToMarkdown(_.pack.blah.installation_command, undefined, "code"); -%>
+<% } else { %>
 ```sh
 $ npm i -g <%- _.pack.name %>
 ```
