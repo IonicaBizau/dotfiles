@@ -1,6 +1,6 @@
 {
   "name": "ionicabizau-dotfiles",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "This repository contains personal dotfiles of Ionică Bizău.",
   "main": "lib/index.js",
   "scripts": {
