@@ -55,6 +55,7 @@ var examplesPath = Path.join(_.path, "examples")
   , isOnlyWeb = _.pack.blah.is_only_web === false ? false : IsThere(process.cwd() + "/index.html")
   ;
 
+  console.log("Is only web:", isOnlyWeb);
 isWeb = isWeb || isOnlyWeb;
 
 if (_.pack.bin) {
@@ -141,6 +142,7 @@ if (_.pack.blah.show_installation === undefined && notALibrary) {
 }
 
 if (_.pack.blah.show_installation !== false) {
+console.log("Showing the installation");
     if (!isOnlyWeb) { %>
 ## :cloud: Installation
     <% }

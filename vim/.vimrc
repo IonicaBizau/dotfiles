@@ -77,7 +77,7 @@ NeoBundle 'lrvick/Conque-Shell'
 NeoBundle 'heavenshell/vim-jsdoc'
 
 let g:jsdoc_custom_args_hook = {
-  \ 'callback\|cb\|fn': {
+  \ 'callback\|cb': {
   \   'type': '{Function}',
   \   'description': 'The callback function.'
   \ },
@@ -95,6 +95,13 @@ let g:jsdoc_type_hook = {
  \ 'Object': 'An object containing the following fields:',
  \ 'Function': 'The callback function.'
  \ }
+
+let g:jsdoc_enable_es6 = 1
+let g:jsdoc_allow_input_prompt = 1
+let g:jsdoc_additional_descriptions = 1
+let g:jsdoc_return_description = 1
+nmap <silent> <C-l> <Plug>(jsdoc)
+
 
 let g:jsdoc_allow_input_prompt = 1
 let g:jsdoc_additional_descriptions = 1
@@ -246,3 +253,8 @@ nnoremap : ;
 
 " Delete unwanted spaces
 autocmd BufWritePre * :%s/\s\+$//e
+
+" Node.js fs.watch
+set backupdir=~/.vim/tmp,.
+set directory=~/.vim/tmp,.
+set backupcopy=yes

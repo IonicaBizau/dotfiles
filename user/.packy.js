@@ -2,8 +2,17 @@
 
 const isThere = require("is-there");
 
+let isBloggify = ~process.argv.indexOf("--bloggify");
+
+let owner = isBloggify ? "Bloggify" : "IonicaBizau";
+
 module.exports = {
-    author: "Ionică Bizău <bizauionica@gmail.com> (http://ionicabizau.net)"
+    homepage: (val, data) => val || `https://github.com/${owner}/${data.name}#readme`
+  , author: (val, data) => {
+        return /\/Bloggify\//i.test(data.homepage)
+            ? "Bloggify <support@bloggify.org> (https://bloggify.org)"
+            : "Ionică Bizău <bizauionica@gmail.com> (https://ionicabizau.net)"
+    }
   , license: "MIT"
   , files: [
         "bin/"
@@ -11,9 +20,9 @@ module.exports = {
       , "lib/"
       , "dist/"
       , "src/"
+      , "scripts/"
       , "resources/"
       , "menu/"
-      , "scripts/"
       , "cli.js"
       , "index.js"
     ]
@@ -27,10 +36,9 @@ module.exports = {
     }
   , repository: {
         type: "git",
-        url: (val, data) => val || `git+ssh://git@github.com/IonicaBizau/${data.name}.git`
+        url: (val, data) => val || `git+ssh://git@github.com/${owner}/${data.name}.git`
     }
   , bugs: {
-        url: (val, data) => val || `https://github.com/IonicaBizau/${data.name}/issues`
+        url: (val, data) => val || `https://github.com/${owner}/${data.name}/issues`
     }
-  , homepage: (val, data) => val || `https://github.com/IonicaBizau/${data.name}#readme`
 };
