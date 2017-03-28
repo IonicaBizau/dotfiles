@@ -148,6 +148,12 @@ console.log("Showing the installation");
 ## :cloud: Installation
     <% }
 
+// Blah custom installation (json2md)
+if (_.pack.blah.before_installation) { %>
+<%-JsonToMarkdown(_.pack.blah.before_installation)%>
+<% }
+
+
     // Cli usage
     if (isCli) { %>
 You can install the package globally and use it as command line tool:
