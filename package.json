@@ -148,7 +148,8 @@
         "            </td>",
         "        </tr>",
         "    </tbody>",
-        "</table>"
+        "</table>",
+        ""
       ],
       {
         "h2": "Applications"
