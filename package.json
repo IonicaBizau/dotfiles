@@ -1,6 +1,6 @@
 {
   "name": "ionicabizau-dotfiles",
-  "version": "1.3.4",
+  "version": "1.3.5",
   "description": "This repository contains personal dotfiles of Ionică Bizău.",
   "main": "lib/index.js",
   "scripts": {
@@ -236,6 +236,9 @@
     "resources/",
     "menu/",
     "cli.js",
-    "index.js"
+    "index.js",
+    "bloggify.js",
+    "bloggify.json",
+    "bloggify/"
   ]
 }
