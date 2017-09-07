@@ -93,7 +93,7 @@ if (authorIsMe) {
     readmeTitle += " [![Support me on Patreon][badge_patreon]][patreon]";
     readmeTitle += " [![Buy me a book][badge_amazon]][amazon]";
     readmeTitle += " [![PayPal][badge_paypal_donate]][paypal-donations]";
-    //readmeTitle += " [![AMA](https://img.shields.io/badge/ask%20me-anything-1abc9c.svg)](https://github.com/IonicaBizau/ama)";
+    readmeTitle += " [![Ask me anything](https://img.shields.io/badge/ask%20me-anything-1abc9c.svg)](https://github.com/IonicaBizau/ama)";
 }
 
 if (IsThere(_.path + "/.travis.yml")) {
@@ -372,9 +372,7 @@ If you are using this library in one of your projects, add it in this list. :spa
 
 <%
     packages = packages || [];
-    var strPacks = [];
-    for (var i in packages) {
-        var c = packages[i];
+    var strPacks = packages.map(function (c) {
         c.homepage = c.homepage || ("https://npmjs.com/package/" + c.name);
         c.authorIsNotMe = c.author && c.author.name && (!c.author.email || c.author.email.split("@")[0] !== "bizauionica");
         if (c.author && c.author.name) {
@@ -383,13 +381,11 @@ If you are using this library in one of your projects, add it in this list. :spa
                 c.__by = "[" + c.__by + "](" + c.author.website + ")";
             }
         }
-        strPacks.push(
-            " - [`" + c.name + "`]"
-          + "(" + c.homepage + ")"
-          + (c.authorIsNotMe ? " (by " + c.__by + ")" : "")
-          + "—" + c.description
-        );
-    }
+        return " - [`" + c.name + "`]"
+             + "(" + c.homepage + ")"
+             + (c.authorIsNotMe ? " (by " + c.__by + ")" : "")
+             + "—" + c.description;
+    })
 %>
 <%- strPacks.join("\n"); -%>
 <% if (_.pack.blah.usages) { -%>
