@@ -118,6 +118,8 @@ NeoBundle 'junegunn/vim-emoji'
 NeoBundle 'maksimr/vim-jsbeautify'
 NeoBundle 'einars/js-beautify'
 NeoBundle 'tpope/vim-unimpaired'
+NeoBundle 'johngrib/vim-game-code-break'
+NeoBundle 'powerman/vim-plugin-AnsiEsc'
 
 call neobundle#end()
 NeoBundleCheck
