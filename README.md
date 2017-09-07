@@ -117,6 +117,7 @@ $ sudo apt-get dist-upgrade
         </tr>
     </tbody>
 </table>
+
 ## Applications
 
 A list of scripts that will install some applications that I often use.
