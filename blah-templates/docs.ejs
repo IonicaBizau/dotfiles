@@ -6,7 +6,8 @@ You can see below the API reference of this module.
     <? docfiles.forEach(function(doc) { -?>
       <? doc.javadoc.forEach(function(comment) { -?>
         <? if (!comment.ignore) { -?>
-          <? if (comment.name === "bloggify:init") { -?>
+          <? var isBloggifyInit = comment.name === "bloggify:init"; ?>
+          <? if (isBloggifyInit) { -?>
           <?    comment.name = "Plugin Configuration"; -?>
           <?    comment.isFunction = comment.isMethod = false; -?>
           <? } -?>
@@ -24,9 +25,12 @@ You can see below the API reference of this module.
             <?= comment.description -?>
 
           <? if (comment.paramTags.length > 0) { ?>
-            #### Params <? comment.paramTags.forEach(function(paramTag) { ?>
-              - **<?= paramTag.joinedTypes ?>** `<?= paramTag.name ?>`: <?= paramTag.description ?><? }) ?>
-          <? } ?>
+            <? if (!isBloggifyInit) { ?>
+                #### Params
+            <? } ?>
+            <? comment.paramTags.forEach(function(paramTag) { ?>
+                - **<?= paramTag.joinedTypes ?>** `<?= paramTag.name ?>`: <?= paramTag.description ?><? }) ?>
+            <? } ?>
 
           <? if (comment.returnTags.length > 0 && comment.returnTags[0].joinedTypes !== "undefined") { ?>
             #### Return

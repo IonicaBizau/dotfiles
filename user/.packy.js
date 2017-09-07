@@ -9,7 +9,7 @@ let owner = isBloggify ? "Bloggify" : "IonicaBizau";
 module.exports = {
     homepage: (val, data) => val || `https://github.com/${owner}/${data.name}#readme`
   , author: (val, data) => {
-        return /\/Bloggify\//i.test(data.homepage)
+        return /\/Bloggify\//i.test(data.homepage) || isBloggify
             ? "Bloggify <support@bloggify.org> (https://bloggify.org)"
             : "Ionică Bizău <bizauionica@gmail.com> (https://ionicabizau.net)"
     }

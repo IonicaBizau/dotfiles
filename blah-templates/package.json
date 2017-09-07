@@ -12,8 +12,8 @@
     "deasync": "^0.1.6",
     "git-url-parse": "^6.0.2",
     "is-there": "^4.3.2",
-    "json2md": "1.5.5",
-    "package-dependents": "^1.2.2",
+    "json2md": "^1.5.9",
+    "package-dependents": "^1.2.8",
     "package-json": "^2.3.2",
     "parse-author": "^1.0.0",
     "ul": "^5.2.2"
