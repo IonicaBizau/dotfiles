@@ -249,7 +249,7 @@ nnoremap <silent> <F10> :call Paste_on_off()<CR>
 nnoremap <silent> <F12> :wincmd w<CR>
 set pastetoggle=<F10>
 
-" Swap ; and :  Convenient.
+" Swap ";" and ":". Convenient.
 nnoremap ; :
 nnoremap : ;
 
