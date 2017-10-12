@@ -4,7 +4,8 @@
 // Initialize blah
 _.pack.blah = _.pack.blah || {};
 
-var Ul = require("ul")
+var Ul = require("ul"),
+    path = require("path")
 
 // Override the require method to require files from the current dir
 require = (function () {
@@ -13,7 +14,8 @@ require = (function () {
         try {
             return _oldRequire(p);
         } catch (e) {
-            return _oldRequire(Ul.home() + "/.blah-templates/node_modules/" + p);
+            // return _oldRequire(Ul.home() + "/.blah-templates/node_modules/" + p);
+            return _oldRequire(path.join(process.cwd(), ".blah/node_modules/", p));
         }
     }
 })();
@@ -128,6 +130,21 @@ if (_.pack.blah.show_title !== false) { %>
 if (_.pack.blah.show_description !== false) { %>
 > <%-_.pack.description%>
 <% }
+
+JsonToMarkdown.converters.cdnjsSection = function (obj) {
+    let links = obj.fileNames.map((fn) => {
+        return `> https://cdnjs.cloudflare.com/ajax/libs/${obj.libUrlName}/${obj.latestVersion}/${fn}`
+    }).join("\n");
+
+    return `
+## :rocket: Available on CDN!
+
+${obj.libName} is available on cdnjs.com. [**Check it out**](https://cdnjs.com/libraries/${obj.libUrlName}).
+
+${links}
+
+` + JsonToMarkdown(obj.afterSection);
+};
 
 // Blah custom description
 if (_.pack.blah.description) { %>
