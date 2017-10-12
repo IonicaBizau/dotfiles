@@ -26,6 +26,7 @@ var IsThere = require("is-there")
   , JsonToMarkdown = require("json2md")
   , Fs = require("fs")
   , Path = require("path")
+  , request = require("request")
   , ParseAuthor = require("parse-author")
   , pAuthor = ParseAuthor(_.pack.author)
   , ExecSync = require("child_process").execSync
@@ -131,19 +132,96 @@ if (_.pack.blah.show_description !== false) { %>
 > <%-_.pack.description%>
 <% }
 
+/**
+ * `obj` is an object with these required or optional properties:
+ * - `libName` (required);
+ * - `justTheseFileNames` (optional) is by default an array with all the file
+ *   names available from the CDNJS API for the specified or default `version`;
+ * - `libCdnjsName` (optional) is by default the lower case version of
+ *   `libName`;
+ * - `afterSection` (optional);
+ * - `version` (optional) is by default the latest available version of the
+ *   library will be used.
+ *
+ * **Example usage:**
+ * ```json
+ * {
+ *   "cdnjsSection": {
+ *     "libName": "MyLib",
+ *     "justTheseFileNames": [
+ *       "test.css",
+ *       "test.min.css"
+ *       "test.js",
+ *       "test.min.js"
+ *     ],
+ *     "afterSection": {
+ *       "p": "Content displayed in a new paragraph after the section."
+ *     }
+ *   }
+ * }
+ * ```
+ */
 JsonToMarkdown.converters.cdnjsSection = function (obj) {
-    let links = obj.fileNames.map((fn) => {
-        return `> https://cdnjs.cloudflare.com/ajax/libs/${obj.libUrlName}/${obj.latestVersion}/${fn}`
+    let libCdnjsName = obj.libCdnjsName || obj.libName.toLowerCase();
+
+    console.log(`Requesting ${libCdnjsName} CDNJS information...`);
+
+    let myError, myResponse, myBody;
+    request(`https://api.cdnjs.com/libraries/${libCdnjsName}`, function (error, response, body) {
+        myError = error;
+        myResponse = response;
+        myBody = body;
+    });
+
+    Deasync.loopWhile(() => { return !myError && !myResponse && !myBody; });
+
+    if (myError) {
+        // Print the error if one occurred
+        console.log('- error: ', myError);
+        console.log("Request failed, using user provided values.");
+    } else if (myResponse && myResponse.statusCode !== 200) {
+        // Print the response status code if a response was received
+        console.log('- statusCode: ', myResponse && myResponse.statusCode);
+        console.log("Request failed, using user provided values.");
+    } else {
+        console.log("- Response received, processing...");
+    }
+
+    // parse response body as JSON
+    var info = JSON.parse(myBody);
+
+    let usedVersion = info.version || obj.version;
+
+    // after the for loop, files will be either an array of file names of the
+    // latest version of the library (or of the specified version), or
+    // undefined
+    var files;
+    for (var i = 0; i < info.assets.length; i++) {
+        if (info.assets[i].version == usedVersion) {
+            files = info.assets[i].files;
+            break;
+        }
+    }
+    files = obj.justTheseFileNames || files;
+
+    // no filename of the library could be found
+    if (!files) {
+        // we return nothing (empty Markdown string)
+        return "";
+    }
+
+    let links = files.map((fn) => {
+        return `> https://cdnjs.cloudflare.com/ajax/libs/${libCdnjsName}/${usedVersion}/${fn}`
     }).join("\n");
 
-    return `
+        return `
 ## :rocket: Available on CDN!
 
-${obj.libName} is available on cdnjs.com. [**Check it out**](https://cdnjs.com/libraries/${obj.libUrlName}).
+${obj.libName} is available on cdnjs.com. [**Check it out**](https://cdnjs.com/libraries/${libCdnjsName}).
 
 ${links}
 
-` + JsonToMarkdown(obj.afterSection);
+` + (obj.afterSection ? JsonToMarkdown(obj.afterSection) : "");
 };
 
 // Blah custom description
