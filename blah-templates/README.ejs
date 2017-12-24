@@ -246,6 +246,7 @@ $ npm i <%- _.pack.blah.is_dev ? "--save-dev" : "--save" %> <%- _.pack.name %>
 
         var exStr = Fs.readFileSync(exStrPath, "utf-8");
         exStr = exStr.replace(/require\(\"\.\.\/?(lib)?\"\)/, `require("${_.pack.name}")`).trimRight();
+        exStr = exStr.replace(/require\(\"\.\.\//, `require("${_.pack.name}/`).trimRight();
         exStr = exStr.replace(/from \"\.\.\/?(lib)?\"/, `from "${_.pack.name}"`).trimRight();
         var splits = exStr.split("\n");
         if (/use strict/.test(splits[0].trim())) {
@@ -268,7 +269,9 @@ There are few ways to get help:
 
  1. Please [post questions on Stack Overflow](https://stackoverflow.com/questions/ask). You can open issues with questions, as long you add a link to your Stack Overflow question.
  2. For bug reports and feature requests, open issues. :bug:
+ <% if (authorIsMe) { %>
  3. For direct and quick help, you can [use Codementor](https://www.codementor.io/johnnyb). :rocket:
+ <% } %>
 
     <% }
 }
