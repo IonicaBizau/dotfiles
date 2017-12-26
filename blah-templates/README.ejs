@@ -164,7 +164,11 @@ You can install the package globally and use it as command line tool:
 <%- JsonToMarkdown(_.pack.blah.installation_command, undefined, "code"); -%>
 <% } else { %>
 ```sh
-$ npm i -g <%- _.pack.name %>
+# Using npm
+npm install --global <%- _.pack.name %>
+
+# Using yarn
+yarn global add <%- _.pack.name %>
 ```
     <% }
 
@@ -197,10 +201,14 @@ $ <%- globalExecutable %> --help
 
 Check out the [`<%-distDir%>`](/<%- distDir %>) directory to download the needed files and include them on your page.
 
-If you're using this module in a CommonJS environment, you can install it from `npm` and `require` it:
+If you're using this module in a CommonJS environment, you can install it using `npm` or `yarn` and `require` it:
 
 ```sh
-$ npm i --save <%- _.pack.name %>
+# Using npm
+npm install --save <%- _.pack.name %>
+
+# Using yarn
+yarn add <%- _.pack.name %>
 ```
 
         <% }
@@ -209,11 +217,15 @@ $ npm i --save <%- _.pack.name %>
 <%- JsonToMarkdown(_.pack.blah.installation_command, undefined, "code"); %>
         <% } else { %>
 ```sh
-$ npm i <%- _.pack.blah.is_dev ? "--save-dev" : "--save" %> <%- _.pack.name %>
+# Using npm
+npm install --save <%- _.pack.name %>
+
+# Using yarn
+yarn add <%- _.pack.name %>
 ```
 
             <% if (_.pack.blah.cli) { %>
-:bulb: **ProTip**: You can install the [cli version of this module](http://github.com/IonicaBizau/<%=_.pack.blah.cli%>) by running `npm i -g <%- _.pack.blah.cli %>`
+:bulb: **ProTip**: You can install the [cli version of this module](http://github.com/IonicaBizau/<%=_.pack.blah.cli%>) by running `npm install --global <%- _.pack.blah.cli %>` (or `yarn global add <%- _.pack.blah.cli %>`).
             <% }
           }
     }
@@ -236,10 +248,14 @@ if (example) {
 ## :clipboard: Example
 
         <% if (isCli) { %>
-Here is an example how to use this package as library. To install it locally, as library, you can do that using `npm`:
+Here is an example how to use this package as library. To install it locally, as library, you can do that using `npm` (or `yarn`):
 
 ```sh
-$ npm i <%- _.pack.blah.is_dev ? "--save-dev" : "--save" %> <%- _.pack.name %>
+# Using npm
+npm install <%- _.pack.blah.is_dev ? "--save-dev" : "--save" %> <%- _.pack.name %>
+
+# Using yarn
+yarn add <%- _.pack.blah.is_dev ? "--dev " : "" %><%- _.pack.name %>
 ```
 
         <% }
