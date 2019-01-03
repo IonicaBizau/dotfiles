@@ -90,10 +90,17 @@ readmeTitle += "\n\n";
 
 var authorIsMe = /bizauionica/.test(_.pack.author);
 if (authorIsMe) {
-    readmeTitle += " [![Support me on Patreon][badge_patreon]][patreon]";
-    readmeTitle += " [![Buy me a book][badge_amazon]][amazon]";
-    readmeTitle += " [![PayPal][badge_paypal_donate]][paypal-donations]";
-    readmeTitle += " [![Ask me anything](https://img.shields.io/badge/ask%20me-anything-1abc9c.svg)](https://github.com/IonicaBizau/ama)";
+    if (_.pack.blah.no_badges) {
+        readmeTitle += " [Support me on Patreon][patreon] | ";
+        readmeTitle += " [Buy me a book][amazon] | ";
+        readmeTitle += " [PayPal][paypal-donations] | ";
+        readmeTitle += " [Ask me anything](https://github.com/IonicaBizau/ama)";
+    } else {
+        readmeTitle += " [![Support me on Patreon][badge_patreon]][patreon]";
+        readmeTitle += " [![Buy me a book][badge_amazon]][amazon]";
+        readmeTitle += " [![PayPal][badge_paypal_donate]][paypal-donations]";
+        readmeTitle += " [![Ask me anything](https://img.shields.io/badge/ask%20me-anything-1abc9c.svg)](https://github.com/IonicaBizau/ama)";
+    }
 }
 
 if (IsThere(_.path + "/.travis.yml")) {
@@ -103,8 +110,11 @@ if (IsThere(_.path + "/.travis.yml")) {
     readmeTitle += ` [![Travis](https://img.shields.io/travis/${parsedGitUrl.owner}/${parsedGitUrl.name}.svg)](https://travis-ci.org/${parsedGitUrl.owner}/${parsedGitUrl.name}/)`;
 }
 
-readmeTitle += ` [![Version](https://img.shields.io/npm/v/${_.pack.name}.svg)](https://www.npmjs.com/package/${_.pack.name})`
-readmeTitle += ` [![Downloads](https://img.shields.io/npm/dt/${_.pack.name}.svg)](https://www.npmjs.com/package/${_.pack.name})`
+if (!_.pack.blah.no_badges) {
+    readmeTitle += ` [![Version](https://img.shields.io/npm/v/${_.pack.name}.svg)](https://www.npmjs.com/package/${_.pack.name})`
+    readmeTitle += ` [![Downloads](https://img.shields.io/npm/dt/${_.pack.name}.svg)](https://www.npmjs.com/package/${_.pack.name})`
+}
+
 if (authorIsMe) {
     //readmeTitle += " [![Get help on Codementor](https://cdn.codementor.io/badges/get_help_github.svg)](https://www.codementor.io/johnnyb?utm_source=github&utm_medium=button&utm_term=johnnyb&utm_campaign=github)";
 }
@@ -174,7 +184,7 @@ yarn global add <%- _.pack.name %>
 
     // Api version of the module
     if (_.pack.blah.api) { %>
-:bulb: **ProTip**: If you want to use this package as module, check out [`<%-_.pack.blah.api%>`—the API version of it](http://github.com/IonicaBizau/<%=_.pack.blah.api%>).
+:bulb: **ProTip**: If you want to use this package as module, check out [`<%-_.pack.blah.api%>`—the API version of it](https://github.com/IonicaBizau/<%=_.pack.blah.api%>).
     <% } %>
 
 Then, run `<%- globalExecutable %> --help` and see what the CLI tool can do.
@@ -225,7 +235,7 @@ yarn add <%- _.pack.name %>
 ```
 
             <% if (_.pack.blah.cli) { %>
-:bulb: **ProTip**: You can install the [cli version of this module](http://github.com/IonicaBizau/<%=_.pack.blah.cli%>) by running `npm install --global <%- _.pack.blah.cli %>` (or `yarn global add <%- _.pack.blah.cli %>`).
+:bulb: **ProTip**: You can install the [cli version of this module](https://github.com/IonicaBizau/<%=_.pack.blah.cli%>) by running `npm install --global <%- _.pack.blah.cli %>` (or `yarn global add <%- _.pack.blah.cli %>`).
             <% }
           }
     }
@@ -340,6 +350,15 @@ this takes time. You can integrate and use these projects in your applications *
 
 However, if you get some profit from this or just want to encourage me to continue creating stuff, there are few ways you can do it:
 
+<% if (_.pack.blah.no_badges) { %>
+ - Starring and sharing the projects you like :rocket:
+ - [Buy me a book][amazon]—I love books! I will remember you after years if you buy me one. :grin: :book:
+ - [PayPal][paypal-donations]—You can make one-time donations via PayPal. I'll probably buy a ~~coffee~~ tea. :tea:
+ - [Support me on Patreon][patreon]—Set up a recurring monthly donation and you will get interesting news about what I'm doing (things that I don't share with everyone).
+ - **Bitcoin**—You can send me bitcoins at this address (or scanning the code below): `1P9BRsmazNQcuyTxEqveUsnf5CERdq35V6`
+
+    ![](https://i.imgur.com/z6OQI95.png)
+<% } else { %>
  - Starring and sharing the projects you like :rocket:
  - [![Buy me a book][badge_amazon]][amazon]—I love books! I will remember you after years if you buy me one. :grin: :book:
  - [![PayPal][badge_paypal]][paypal-donations]—You can make one-time donations via PayPal. I'll probably buy a ~~coffee~~ tea. :tea:
@@ -347,6 +366,7 @@ However, if you get some profit from this or just want to encourage me to contin
  - **Bitcoin**—You can send me bitcoins at this address (or scanning the code below): `1P9BRsmazNQcuyTxEqveUsnf5CERdq35V6`
 
     ![](https://i.imgur.com/z6OQI95.png)
+<% } %>
 
 Thanks! :heart:
 
@@ -444,14 +464,15 @@ if (_.pack.blah.show_license !== false) { %>
 
 // Links
 if (authorIsMe) { %>
-[badge_patreon]: http://ionicabizau.github.io/badges/patreon.svg
-[badge_amazon]: http://ionicabizau.github.io/badges/amazon.svg
-[badge_paypal]: http://ionicabizau.github.io/badges/paypal.svg
-[badge_paypal_donate]: http://ionicabizau.github.io/badges/paypal_donate.svg
+<% if (!_.pack.blah.no_badges) { %>
+[badge_patreon]: https://ionicabizau.github.io/badges/patreon.svg
+[badge_amazon]: https://ionicabizau.github.io/badges/amazon.svg
+[badge_paypal]: https://ionicabizau.github.io/badges/paypal.svg
+[badge_paypal_donate]: https://ionicabizau.github.io/badges/paypal_donate.svg
+<% } %>
 [patreon]: https://www.patreon.com/ionicabizau
 [amazon]: http://amzn.eu/hRo9sIZ
 [paypal-donations]: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=RVXDDLKKLQRJW
-[donate-now]: http://i.imgur.com/6cMbHOC.png
 <% } %>
 [license]: http://showalicense.com/?fullname=<%- encodeURIComponent(_.pack.author) %>&year=<%-_.first_commit_year%>#license-<%- _.pack.license.toLowerCase() %>
 [website]: <%- pAuthor.url %>
