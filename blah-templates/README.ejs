@@ -384,18 +384,20 @@ if (_.pack.blah.thanks) { %>
 <% }
 
 var foundUsages = false;
-if (!isOnlyWeb && _.pack.blah.show_usage !== false && !notALibrary) {
+if (false && !isOnlyWeb && _.pack.blah.show_usage !== false && !notALibrary) {
 
     var foundUsages = false;
 
     // Who used this?
     console.log("Fetching the dependents. This may take a while")
+
     var Dependents = Deasync(function (input, cb) {
         //setTimeout(function () {
         //    cb(new Error("Timeout."));
         //}, 5 * 1000);
         packageDependents(input, cb)
     });
+
     try {
         var packages = Dependents(_.pack.name);
         if (packages.length) { foundUsages = true; console.log("Found dependents."); }
@@ -433,7 +435,7 @@ If you are using this library in one of your projects, add it in this list. :spa
 <% }
 }
 
-if (_.pack.blah.related) {
+if (_.pack.blah.related && false) {
     if (Array.isArray(_.pack.blah.related)) {
         _.pack.blah.related = { ul: _.pack.blah.related };
     }
@@ -441,7 +443,12 @@ if (_.pack.blah.related) {
     if (Array.isArray(_.pack.blah.related.ul)) {
         _.pack.blah.related.ul = _.pack.blah.related.ul.map(c => {
             if (typeof c !== "string" || ~c.indexOf(" ")) { return; }
-            var pack = getPackInfo(c);
+            var pack = null
+            try {
+                pack = getPackInfo(c);
+            } catch (e) {
+                return ""
+            }
             return "[`" + pack.name + "`](" + pack.homepage + ")—" + pack.description;
         });
     }
