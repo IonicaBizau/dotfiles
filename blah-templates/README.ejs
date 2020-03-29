@@ -283,6 +283,8 @@ yarn add <%- _.pack.blah.is_dev ? "--dev " : "" %><%- _.pack.name %>
 <%- exStr %>
 ```
 
+<% } %>
+
 <%
 // Blah custom example (json2md)
 if (_.pack.blah.example) { %>
@@ -298,10 +300,9 @@ There are few ways to get help:
  <% if (authorIsMe) { %>
  3. For direct and quick help, you can [use Codementor](https://www.codementor.io/johnnyb). :rocket:
  <% } %>
+<% } %>
 
-    <% }
-}
-
+<%
 // Documentation
 if (_.pack.blah.show_docs === undefined && docs.split("\n").length <= 6) {
     _.pack.blah.show_docs = false;
