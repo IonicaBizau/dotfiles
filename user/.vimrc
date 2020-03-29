@@ -260,3 +260,17 @@ autocmd BufWritePre * :%s/\s\+$//e
 set backupdir=~/.vim/tmp,.
 set directory=~/.vim/tmp,.
 set backupcopy=yes
+
+" Folding
+"  za: Toggle code folding at the current line.
+"  zR: Open all folds.
+"  zM: Close all folds.
+set foldmethod=syntax
+
+" Keep all folds open when a file is opened
+augroup OpenAllFoldsOnFileOpen
+    autocmd!
+    autocmd BufRead * normal zR
+augroup END
+
+set background=dark
