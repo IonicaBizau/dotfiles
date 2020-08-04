@@ -7,6 +7,7 @@ module.exports = async (tempaltePath, data, _) => {
     let packages = await packageDependents(_.pack.name)
     console.log("Found dependents.");
     packages = packages || [];
+    let foundUsages = false
     if (packages.length || _.pack.blah.usages) {
         foundUsages = true;
     }
