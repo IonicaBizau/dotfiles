@@ -1,6 +1,6 @@
 "use strict";
 
-const isThere = require("is-there");
+const isThere = require("fs").existsSync
 
 let isBloggify = ~process.argv.indexOf("--bloggify");
 

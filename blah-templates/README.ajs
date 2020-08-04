@@ -6,31 +6,28 @@
 // Initialize blah
 _.pack.blah = _.pack.blah || {};
 
+var Ul = require("ul")
+
 // Override the require method to require files from the current dir
-const oldRequire = require
-const Ul = require("ul")
-require = function (p) {
-    try {
-        return oldRequire(p)
-    } catch (e) {
-        return oldRequire(`${Ul.home()}/.blah-templates/node_modules/${p}`)
-    }
+var blahRequire = function (p) {
+    return require(Ul.home() + "/.blah-templates/node_modules/" + p);
 }
 
 _.pack.main = _.pack.blah.main || _.pack.main;
-console.log("In template")
 
 // Dependencies
-const IsThere = require("is-there")
-    , JsonToMarkdown = require("json2md")
-    , Fs = require("fs")
-    , Path = require("path")
-    , ParseAuthor = require("parse-author")
-    , pAuthor = ParseAuthor(_.pack.author)
-    , ExecSync = require("child_process").execSync
-    , GitUrlParse = require("git-url-parse")
-    , parsedGitUrl = GitUrlParse(_.pack.repository.url)
-    ;
+var IsThere = require("is-there")
+  , JsonToMarkdown = blahRequire("json2md")
+  , Fs = require("fs")
+  , Path = require("path")
+  , ParseAuthor = blahRequire("parse-author")
+  , pAuthor = ParseAuthor(_.pack.author)
+  , ExecSync = require("child_process").execSync
+  , GitUrlParse = blahRequire("git-url-parse")
+  , parsedGitUrl = GitUrlParse(_.pack.repository.url)
+  , packageDependents = blahRequire("package-dependents")
+  , packageJson = blahRequire("package-json")
+  ;
 
 if (~process.argv.indexOf("-l")) {
     console.log("Generating .travis.yml");
@@ -43,7 +40,7 @@ if (~process.argv.indexOf("-l")) {
 
 
 // Compute the directory paths
-let examplesPath = Path.join(_.path, "examples")
+var examplesPath = Path.join(_.path, "examples")
   , examplePath = Path.join(_.path, "example")
   , example = IsThere(examplePath) ? examplePath : IsThere(examplesPath) ? examplesPath : null
   , isWeb = IsThere(examplePath + "/index.html")
@@ -53,34 +50,31 @@ let examplesPath = Path.join(_.path, "examples")
   console.log("Is only web:", isOnlyWeb);
 isWeb = isWeb || isOnlyWeb;
 
-let binPath = ""
-let globalExecutable = ""
 if (_.pack.bin) {
-    globalExecutable = Object.keys(_.pack.bin || {})[0];
+    var globalExecutable = Object.keys(_.pack.bin || {})[0];
 
-    console.log("Global", globalExecutable)
-    let localBinPath = (_.pack.bin || {})
+    var localBinPath = (_.pack.bin || {})
     localBinPath = localBinPath[globalExecutable]
 
     console.log(globalExecutable, _.pack.bin, localBinPath)
-    binPath = Path.join(_.path, localBinPath);
+    var binPath = Path.join(_.path, localBinPath);
     console.log("Found executable in: " + binPath);
 }
 
-let isCli = binPath && IsThere(binPath);
+var isCli = IsThere(binPath);
 console.log("Is CLI: " + isCli);
 
 if (_.pack.license && (_.pack.blah.generateLicense !== false)) {
    ExecSync("blah -l mit").toString();
 }
 
-let firstCommitYear = ExecSync("git log --pretty=format:%ad | tail -1 | awk -v N=5 '{print $N}'").toString();
+var firstCommitYear = ExecSync("git log --pretty=format:%ad | tail -1 | awk -v N=5 '{print $N}'").toString();
 _.pack.blah.license_year = _.pack.blah.license_year || firstCommitYear || new Date().getFullYear();
-let mainFile = _.path + "/" + _.pack.main
-let notALibrary = !IsThere(mainFile)
+var mainFile = _.path + "/" + _.pack.main
+var notALibrary = !IsThere(mainFile)
 
 // Create the name and description
-let readmeTitle = _.pack.name;
+var readmeTitle = _.pack.name;
 if (isCli) {
     readmeTitle = "`$ " + _.pack.name.replace(/\-cli$/g, "") + "`";
 } else {
@@ -89,7 +83,7 @@ if (isCli) {
 
 readmeTitle += "\n\n";
 
-let authorIsMe = /bizauionica/.test(_.pack.author);
+var authorIsMe = /bizauionica/.test(_.pack.author);
 if (authorIsMe) {
     if (_.pack.blah.no_badges) {
         readmeTitle += " [Support me on Patreon][patreon] | ";
@@ -129,6 +123,9 @@ if (authorIsMe) {
 [![<%- _.pack.name %>](<%- _.pack.blah.h_img %>)](<%-_.pack.blah.h_url || "#"%>)
 <% } %>
 
+
+
+
 <% // ======================= %>
 <% // Blah custom description %>
 <% // ======================= %>
@@ -143,7 +140,6 @@ if (authorIsMe) {
 # <%-readmeTitle%>
 <% } %>
 
-<% console.log("Generating description") %>
 <% // =========== %>
 <% // Description %>
 <% // =========== %>
@@ -169,6 +165,7 @@ if (authorIsMe) {
 <% // Installation  %>
 <% // ============= %>
 <%
+
 if (_.pack.blah.show_installation === undefined && notALibrary) {
   _.pack.blah.show_installation = false;
 }
@@ -193,6 +190,7 @@ if (_.pack.blah.show_installation !== false) {
     if (isCli) {
 %>
 You can install the package globally and use it as command line tool:
+<%- '\n' %>
 
 <%
         if (_.pack.blah.installation_command) {
@@ -201,10 +199,10 @@ You can install the package globally and use it as command line tool:
 <%      } else { %>
 ```sh
 # Using npm
-npm install --global <%- _.pack.name %>
+npm install --global <%- _.pack.name + '\n\n' %>
 
 # Using yarn
-yarn global add <%- _.pack.name %>
+yarn global add <%- _.pack.name + '\n' %>
 ```
 <%
         }
@@ -212,11 +210,15 @@ yarn global add <%- _.pack.name %>
         // Api version of the module
         if (_.pack.blah.api) {
 %>
+<%- '\n' %>
 :bulb: **ProTip**: If you want to use this package as module, check out [`<%-_.pack.blah.api%>`—the API version of it](https://github.com/IonicaBizau/<%=_.pack.blah.api%>).
-
+<%- '\n' %>
 <%      } %>
 
+<%- '\n' %>
 Then, run `<%- globalExecutable %> --help` and see what the CLI tool can do.
+<%- '\n' %>
+
 <%
         // Check if it's CLI
         if (isCli) {
@@ -225,14 +227,14 @@ Then, run `<%- globalExecutable %> --help` and see what the CLI tool can do.
 
 ```
 $ <%- globalExecutable %> --help
-<%- ExecSync(binPath + " --help", { cwd: process.cwd() }).toString().slice(0, -1) %>
+<%- ExecSync(binPath + " --help", { cwd: process.cwd() }).toString() %>
 ```
-
+<%- '\n' %>
 <%      }
     } else if (isWeb) {
         if (!isOnlyWeb) {
 
-        let distPath = Path.join(_.path, "dist")
+        var distPath = Path.join(_.path, "dist")
           , srcPath = Path.join(_.path, "src")
           , distDir = IsThere(distPath) ? "dist" : IsThere(srcPath) ? "src" : "lib"
           ;
@@ -271,7 +273,6 @@ yarn add <%- _.pack.name %>
             if (_.pack.blah.cli) {
 %>
 :bulb: **ProTip**: You can install the [cli version of this module](https://github.com/IonicaBizau/<%=_.pack.blah.cli%>) by running `npm install --global <%- _.pack.blah.cli %>` (or `yarn global add <%- _.pack.blah.cli %>`).
-
 <%
             }
         }
@@ -280,7 +281,7 @@ yarn add <%- _.pack.name %>
 %>
 
 <% // ================================== %>
-<% // Blah custom installation (json2md) %>
+<% // Blah custom installation (json2md)
 <% // ================================== %>
 <% if (_.pack.blah.installation) { %>
 <%-JsonToMarkdown(_.pack.blah.installation)%>
@@ -305,8 +306,8 @@ yarn add <%- _.pack.name %>
 <%
             if (isCli) {
 
-                let maybeDev = "--save"
-                let maybeSaveDev = ""
+                var maybeDev = "--save"
+                var maybeSaveDev = ""
 
                 if (_.pack.blah.is_dev) {
                     maybeDev = "--dev"
@@ -316,26 +317,30 @@ yarn add <%- _.pack.name %>
 
 Here is an example how to use this package as library. To install it locally, as library, you can use `npm install <%- _.pack.name %>` (or `yarn add <%- _.pack.name %>`):
 
+<%- '\n' %>
+
 <%
             }
-            let exStr = Fs.readFileSync(exStrPath, "utf-8");
+            var exStr = Fs.readFileSync(exStrPath, "utf-8");
             exStr = exStr.replace(/require\(\"\.\.\/?(lib)?\"\)/, "require(\"" + _.pack.name + "\")").trimRight();
             exStr = exStr.replace(/require\(\"\.\.\//, "require(\"" + _.pack.name + "/").trimRight();
             exStr = exStr.replace(/from \"\.\.\/?(lib)?\"/, "from \"" + _.pack.name + "\"").trimRight();
-            let splits = exStr.split("\n");
+            var splits = exStr.split("\n");
             if (/use strict/.test(splits[0].trim())) {
                 exStr = splits.slice(1).join("\n").trim();
             }
 %>
 
-```<%- (_.pack.blah.exampleLang || "js") %>
-<%- exStr %>
+```<%- (_.pack.blah.exampleLang || "js") + "\n" %>
+<%- exStr + "\n" %>
 ```
+<%- '\n' %>
 <%
         }
     }
 %>
 
+<%- '\n' %>
 <% // ============================= %>
 <% // Blah custom example (json2md) %>
 <% // ============================= %>
@@ -347,6 +352,7 @@ Here is an example how to use this package as library. To install it locally, as
     }
 %>
 
+<%- '\n' %>
 <% // ======== %>
 <% // Get Help %>
 <% // ======== %>
@@ -356,7 +362,7 @@ Here is an example how to use this package as library. To install it locally, as
 There are few ways to get help:
 
 <%
-    let items = [
+    var items = [
          "1. Please [post questions on Stack Overflow](https://stackoverflow.com/questions/ask). You can open issues with questions, as long you add a link to your Stack Overflow question.",
          "2. For bug reports and feature requests, open issues. :bug:"
     ]
@@ -366,7 +372,11 @@ There are few ways to get help:
     items = " " + items.join("\n ")
 %>
 
+<%- '\n' %>
+
 <%- items %>
+
+<%- '\n\n' %>
 
 <% // ============= %>
 <% // Documentation %>
@@ -406,6 +416,8 @@ For full API reference, see the [DOCUMENTATION.md][docs] file.
     }
 %>
 
+<%- '\n\n' %>
+
 <% // ===== %>
 <% // Press %>
 <% // ===== %>
@@ -428,13 +440,16 @@ For full API reference, see the [DOCUMENTATION.md][docs] file.
 ## :yum: How to contribute
 Have an idea? Found a bug? See [how to contribute][contributing].
 
+<%- '\n\n' %>
+
 <%
         if (authorIsMe) {
 %>
 ## :sparkling_heart: Support my projects
+<%- '\n' %>
 I open-source almost everything I can, and I try to reply to everyone needing help using these projects. Obviously,
 this takes time. You can integrate and use these projects in your applications *for free*! You can even change the source code and redistribute (even resell it).
-
+<%- '\n' %>
 However, if you get some profit from this or just want to encourage me to continue creating stuff, there are few ways you can do it:
 
 <% if (_.pack.blah.no_badges) { %>
@@ -443,7 +458,7 @@ However, if you get some profit from this or just want to encourage me to contin
  - [PayPal][paypal-donations]—You can make one-time donations via PayPal. I'll probably buy a ~~coffee~~ tea. :tea:
  - [Support me on Patreon][patreon]—Set up a recurring monthly donation and you will get interesting news about what I'm doing (things that I don't share with everyone).
  - **Bitcoin**—You can send me bitcoins at this address (or scanning the code below): `1P9BRsmazNQcuyTxEqveUsnf5CERdq35V6`
-
+    <%- '\n' %>
     ![](https://i.imgur.com/z6OQI95.png)
 <% } else { %>
  - Starring and sharing the projects you like :rocket:
@@ -451,11 +466,13 @@ However, if you get some profit from this or just want to encourage me to contin
  - [![PayPal][badge_paypal]][paypal-donations]—You can make one-time donations via PayPal. I'll probably buy a ~~coffee~~ tea. :tea:
  - [![Support me on Patreon][badge_patreon]][patreon]—Set up a recurring monthly donation and you will get interesting news about what I'm doing (things that I don't share with everyone).
  - **Bitcoin**—You can send me bitcoins at this address (or scanning the code below): `1P9BRsmazNQcuyTxEqveUsnf5CERdq35V6`
-
+    <%- '\n' %>
     ![](https://i.imgur.com/z6OQI95.png)
 <% } %>
 
+<%- '\n\n' %>
 Thanks! :heart:
+<%- '\n\n' %>
 
 <%
         }
@@ -464,7 +481,7 @@ Thanks! :heart:
 
 <% if (_.pack.blah.contributing) { %>
 <%- JsonToMarkdown(_.pack.blah.contributing) %>
-<% } %>
+<% }
 
 <% // ====== %>
 <% // Thanks %>
@@ -479,32 +496,85 @@ Thanks! :heart:
 <% // Usages %>
 <% // ====== %>
 <%
-    if (_.foundUsages && !isOnlyWeb && _.pack.blah.show_usage !== false && !notALibrary) {
+    var foundUsages = false;
+    if (false && !isOnlyWeb && _.pack.blah.show_usage !== false && !notALibrary) {
+
+        var foundUsages = false;
+
+        // Who used this?
+        console.log("Fetching the dependents. This may take a while")
+        packageDependents(_.pack.name, function (err, packages) {
+            if (err) { return console.error(err) }
+            console.log("Found dependents.");
+            packages = packages || [];
+            if (packages.length || _.pack.blah.usages) {
+                foundUsages = true;
+            }
+
+            if (foundUsages) {
 %>
 
 ## :dizzy: Where is this library used?
 If you are using this library in one of your projects, add it in this list. :sparkles:
 
-<%- _.usages.join("\n"); -%>
+<%
+                var strPacks = packages.map(function (c) {
+                    c.homepage = c.homepage || ("https://npmjs.com/package/" + c.name);
+                    c.authorIsNotMe = c.author && c.author.name && (!c.author.email || c.author.email.split("@")[0] !== "bizauionica");
+                    if (c.author && c.author.name) {
+                        c.__by = c.author.name;
+                        if (c.author.website) {
+                            c.__by = "[" + c.__by + "](" + c.author.website + ")";
+                        }
+                    }
+                    return " - [`" + c.name + "`]" + "(" + c.homepage + ")" + (c.authorIsNotMe ? " (by " + c.__by + ")" : "") + "—" + c.description;
+                })
+%>
+<%- strPacks.join("\n"); -%>
 <% if (_.pack.blah.usages) { -%>
 <%-JsonToMarkdown(_.pack.blah.usages) -%>
 <% } %>
 
 <%
+            }
+        })
     }
 %>
 
 <%
-    if (_.pack.blah.related && _.pack.blah.related.length) {
+    if (_.pack.blah.related && false) {
+        if (Array.isArray(_.pack.blah.related)) {
+            _.pack.blah.related = { ul: _.pack.blah.related };
+        }
+
+        if (Array.isArray(_.pack.blah.related.ul)) {
+            var proms = []
+            for (var i = 0; i < _.pack.blah.related.ul.length; ++i) {
+                proms.push(function (c) {
+                    if (typeof c !== "string" || ~c.indexOf(" ")) { return null; }
+                    return packageJson(c)
+                })
+            }
+            Promise.all(proms).then(function (packs) {
+                packs = packs.filter(Boolean)
+                const relUl = _.pack.blah.related.ul = []
+                for (var i = 0; i < packs.length; ++i) {
+                    var pack = packs[i]
+                    relUl.push(
+                        "[`" + pack.name + "`](" + pack.homepage + ")—" + pack.description
+                    )
+                }
 %>
 
 ## :sparkles: Related
 <%- JsonToMarkdown(_.pack.blah.related) %>
-
 <%
+            }).catch(function (err) { console.error(err) })
+        }
     }
 %>
 
+<%- '\n\n' %>
 <% // =================== %>
 <% // License Information %>
 <% // =================== %>
@@ -527,11 +597,12 @@ If you are using this library in one of your projects, add it in this list. :spa
     }
 %>
 
+<%- '\n\n' %>
 <% // ===== %>
 <% // Links %>
 <% // ===== %>
 <%
-    let links = [
+    var links = [
         "[license]: /LICENSE",
         "[website]: " + pAuthor.url,
         "[contributing]: /CONTRIBUTING.md",

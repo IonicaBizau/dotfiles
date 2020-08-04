@@ -9,13 +9,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "deasync": "^0.1.6",
-    "git-url-parse": "^6.0.2",
+    "git-url-parse": "^11.1.2",
     "is-there": "^4.3.2",
     "json2md": "^1.5.9",
-    "package-dependents": "^1.2.8",
-    "package-json": "^2.3.2",
-    "parse-author": "^1.0.0",
+    "package-dependents": "^2.0.0",
+    "package-json": "^6.5.0",
+    "parse-author": "^2.0.0",
+    "pkg.json": "^2.0.7",
     "ul": "^5.2.2"
   }
 }

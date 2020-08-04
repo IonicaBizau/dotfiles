@@ -64,7 +64,7 @@ if has('conceal')
   set conceallevel=2 concealcursor=i
 endif
 
-NeoBundle 'kien/ctrlp.vim'
+"NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'flazz/vim-colorschemes'
 NeoBundle "mattn/emmet-vim.git"
 NeoBundle "Shougo/neocomplcache.vim"
@@ -113,7 +113,9 @@ NeoBundle "MarcWeber/vim-addon-mw-utils"
 NeoBundle "tomtom/tlib_vim"
 NeoBundle "garbas/vim-snipmate"
 NeoBundle "honza/vim-snippets"
-NeoBundle "sheerun/vim-polyglot"
+"NeoBundle "sheerun/vim-polyglot"
+"let g:polyglot_disabled = ['md']
+
 NeoBundle 'junegunn/vim-emoji'
 NeoBundle 'maksimr/vim-jsbeautify'
 NeoBundle 'einars/js-beautify'
