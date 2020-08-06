@@ -151,3 +151,21 @@ export NVM_DIR="/home/ionicabizau/.nvm"
 
 alias ic="git add . -A; git commit -m 'Initial commit.'"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+create-hdd-dirs () {
+    mkdir _adventist
+    mkdir _archived
+    mkdir _data
+    mkdir _design
+    mkdir _final_music
+    mkdir _final_videos
+    mkdir _historical
+    mkdir _music
+    mkdir _music_resources
+    mkdir _photos
+    mkdir _programming
+    mkdir _research
+    mkdir _to_delete
+    mkdir _video_sessions
+    mkdir _voice_memos
+}
