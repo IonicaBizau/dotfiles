@@ -43,6 +43,7 @@ endfunction
 
 " Let NeoBundle manage NeoBundle
 NeoBundleFetch 'Shougo/neobundle.vim'
+NeoBundleFetch 'github/copilot.vim'
 
 NeoBundle 'Shougo/neosnippet.vim'
 NeoBundle 'Shougo/neosnippet-snippets'
@@ -111,7 +112,7 @@ nmap <silent> <C-l> <Plug>(jsdoc)
 
 NeoBundle "MarcWeber/vim-addon-mw-utils"
 NeoBundle "tomtom/tlib_vim"
-NeoBundle "garbas/vim-snipmate"
+"NeoBundle "garbas/vim-snipmate"
 NeoBundle "honza/vim-snippets"
 "NeoBundle "sheerun/vim-polyglot"
 "let g:polyglot_disabled = ['md']
@@ -164,8 +165,8 @@ endif
 set wildmenu
 set wildmode=list:longest,full
 
-" Enable mouse support in console
-set mouse=a
+" Disable mouse support in console
+set mouse=
 
 " Got backspace?
 set backspace=2
@@ -268,6 +269,7 @@ set backupcopy=yes
 "  zR: Open all folds.
 "  zM: Close all folds.
 set foldmethod=syntax
+autocmd FileType c setlocal foldmethod=syntax
 
 " Keep all folds open when a file is opened
 augroup OpenAllFoldsOnFileOpen

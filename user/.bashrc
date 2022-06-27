@@ -146,11 +146,11 @@ export GITHUB_USERNAME='IonicaBizau'
 # Add Node path to $PATH
 export PATH=$HOME/.node/bin:$PATH
 
-export NVM_DIR="/home/ionicabizau/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-
-alias ic="git add . -A; git commit -m 'Initial commit.'"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+#export NVM_DIR="/home/ionicabizau/.nvm"
+#[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+#
+#alias ic="git add . -A; git commit -m 'Initial commit.'"
+#[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 create-hdd-dirs () {
     mkdir _adventist
@@ -169,3 +169,5 @@ create-hdd-dirs () {
     mkdir _video_sessions
     mkdir _voice_memos
 }
+
+source ~/.brokerbin-credentials
