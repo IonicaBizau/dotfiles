@@ -110,6 +110,8 @@ let g:jsdoc_return_description = 1
 let g:jsdoc_enable_es6 = 1
 nmap <silent> <C-l> <Plug>(jsdoc)
 
+let g:jsdoc_templates_path = expand('~/.vim/bundle/vim-jsdoc/examples/snippet_template.js')
+
 NeoBundle "MarcWeber/vim-addon-mw-utils"
 NeoBundle "tomtom/tlib_vim"
 "NeoBundle "garbas/vim-snipmate"

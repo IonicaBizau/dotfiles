@@ -17,6 +17,7 @@
     lg = !"git lg1"
     dbranch = "!sh -c \"git branch -d $1 && git push origin :$1\""
     tree = log --graph --decorate --pretty=oneline --abbrev-commit
+    nv = checkout -b new-version
     count = rev-list HEAD --count
     stats = shortlog -s -n --all
     pbranch = "!sh -c \"git fetch origin $1:$1 && git checkout $1\""
