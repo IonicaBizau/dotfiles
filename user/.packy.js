@@ -25,6 +25,8 @@ module.exports = {
       , "menu/"
       , "cli.js"
       , "index.js"
+      , "index.d.ts"
+      , "package-lock.json"
         // Bloggify fields
       , "bloggify.js"
       , "bloggify.json"

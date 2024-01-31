@@ -31,3 +31,5 @@
 	clean = git-lfs clean -- %f
 [init]
 	templatedir = /home/ionicabizau/.git-templates
+[pull]
+	rebase = false
