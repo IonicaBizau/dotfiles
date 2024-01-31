@@ -351,6 +351,7 @@ Here is an example how to use this package as library. To install it locally, as
 <% // ======== %>
 <% // Get Help %>
 <% // ======== %>
+<% if (_.pack.blah.show_get_help !== false) { %>
 
 ## :question: Get Help
 
@@ -368,6 +369,8 @@ There are few ways to get help:
 %>
 
 <%- items %>
+
+<% } %>
 
 <% // ============= %>
 <% // Documentation %>

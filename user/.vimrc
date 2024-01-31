@@ -43,7 +43,7 @@ endfunction
 
 " Let NeoBundle manage NeoBundle
 NeoBundleFetch 'Shougo/neobundle.vim'
-NeoBundleFetch 'github/copilot.vim'
+NeoBundle 'github/copilot.vim'
 
 NeoBundle 'Shougo/neosnippet.vim'
 NeoBundle 'Shougo/neosnippet-snippets'
@@ -280,3 +280,7 @@ augroup OpenAllFoldsOnFileOpen
 augroup END
 
 set background=dark
+
+
+let g:copilot_filetypes = {'markdown': v:true}
+

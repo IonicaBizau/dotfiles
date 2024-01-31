@@ -173,3 +173,32 @@ create-hdd-dirs () {
 }
 
 source ~/.brokerbin-credentials
+export PATH=~/.npm-global/bin:$PATH
+
+star-wars () {
+    telnet towel.blinkenlights.nl
+}
+
+
+if [ -f ~/.git-completion.bash ]; then
+  . ~/.git-completion.bash
+fi
+
+3abn-radio () {
+    /Applications/VLC.app/Contents/MacOS/VLC --intf dummy 'http://war.str3am.com:7180/MC01'
+}
+
+md-to-pdf () {
+    pandoc -f markdown-implicit_figures+hard_line_breaks -t pdf $1 > $2
+}
+
+tex-to-pdf () {
+    pandoc $1 -o $2
+}
+
+md-to-pdf-less-margins () {
+    pandoc -f markdown-implicit_figures+hard_line_breaks -t pdf $1 > $2
+}
+
+# heroku autocomplete setup
+HEROKU_AC_BASH_SETUP_PATH=/Users/ionicabizau/Library/Caches/heroku/autocomplete/bash_setup && test -f $HEROKU_AC_BASH_SETUP_PATH && source $HEROKU_AC_BASH_SETUP_PATH;
