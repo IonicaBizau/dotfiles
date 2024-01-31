@@ -17,7 +17,11 @@ module.exports = async (tempaltePath, data, _) => {
         // Who used this?
         console.log("Fetching the dependents. This may take a while")
         _.foundUsages = true
-        let strPacks = packages.map(c => {
+        let strPacks = packages.sort((a, b) => {
+            if (a.name > b.name) { return 1; }
+            if (a.name < b.name) { return -1; }
+            return 0;
+        }).map(c => {
             c.homepage = c.homepage || ("https://npmjs.com/package/" + c.name);
             c.authorIsNotMe = c.author && c.author.name && (!c.author.email || c.author.email.split("@")[0] !== "bizauionica");
             if (c.author && c.author.name) {
