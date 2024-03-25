@@ -281,6 +281,9 @@ augroup END
 
 set background=dark
 
-
-let g:copilot_filetypes = {'markdown': v:true}
-
+let g:copilot_filetypes = {
+    \ 'gitcommit': v:true,
+    \ 'markdown': v:true,
+    \ 'md': v:true,
+    \ 'yaml': v:true
+    \ }

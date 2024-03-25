@@ -177,6 +177,15 @@ create-hdd-dirs () {
 }
 
 source ~/.brokerbin-credentials
+
+austrialian-news-audio () {
+    austrialian-news | say --progress
+}
+
+austrialian-news () {
+    curl -X GET "https://newsapi.org/v2/top-headlines?country=au&apiKey=595b64bf88b345cd88cef40dd0fbf430" | jsonlint | grep -e title
+}
+
 export PATH=~/.npm-global/bin:$PATH
 
 star-wars () {

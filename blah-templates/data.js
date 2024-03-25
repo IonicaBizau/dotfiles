@@ -1,6 +1,7 @@
 const packageDependents = require("package-dependents")
     , util = require("util")
     , packageJson = util.promisify(require("pkg.json"))
+    , fs = require("fs").promises
 
 module.exports = async (tempaltePath, data, _) => {
 
@@ -50,5 +51,27 @@ module.exports = async (tempaltePath, data, _) => {
         _.pack.blah.related.ul = packs.filter(Boolean).map(pack => {
             return "[`" + pack.name + "`](" + pack.homepage + ")—" + pack.description
         })
+    }
+
+    // Create the .github dir and its files
+    const projRoot = process.cwd()
+
+    try {
+        await fs.mkdir(`${projRoot}/.github`)
+    } catch (e) {
+        if (e.code !== "EEXIST") {
+            console.warn(e)
+        }
+    }
+
+    try {
+        await fs.writeFile(`${projRoot}/.github/FUNDING.yml`, [
+            "github: ionicabizau",
+            "patreon: ionicabizau",
+            "open_collective: ionicabizau",
+            "custom: https://www.buymeacoffee.com/h96wwchmy"
+        ].join("\n"))
+    } catch (e) {
+        console.warn(e)
     }
 }
