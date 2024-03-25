@@ -132,6 +132,10 @@ ghclone () {
     git clone git@github.com:$GITHUB_USERNAME/$1.git
 }
 
+bghclone () {
+    git clone git@github.com:Bloggify/$1.git
+}
+
 xp () {
     xclip -selection clipboard -o
 }
