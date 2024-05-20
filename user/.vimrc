@@ -167,9 +167,6 @@ endif
 set wildmenu
 set wildmode=list:longest,full
 
-" Disable mouse support in console
-set mouse=
-
 " Got backspace?
 set backspace=2
 
@@ -287,3 +284,7 @@ let g:copilot_filetypes = {
     \ 'md': v:true,
     \ 'yaml': v:true
     \ }
+
+" Disable mouse support in console
+" set mouse=
+
