@@ -43,7 +43,7 @@ endfunction
 
 " Let NeoBundle manage NeoBundle
 NeoBundleFetch 'Shougo/neobundle.vim'
-NeoBundle 'github/copilot.vim'
+"NeoBundle 'github/copilot.vim'
 
 NeoBundle 'Shougo/neosnippet.vim'
 NeoBundle 'Shougo/neosnippet-snippets'

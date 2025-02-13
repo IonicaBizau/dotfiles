@@ -24,6 +24,7 @@
 
 [core]
     fileMode = false
+	ignorecase = false
 [filter "lfs"]
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
