@@ -5,6 +5,18 @@ const packageDependents = require("package-dependents")
 
 module.exports = async (tempaltePath, data, _) => {
 
+    const stringifiedPack = JSON.stringify(_.pack, null, 2).split("\n").map(c => {
+        // If the current line contains the name of the package,
+        // cdnjs.cloudflare.com or unpkg.com, replace the semver
+        // version with the current package version
+        if ((c.includes("cdnjs.cloudflare.com") || c.includes("unpkg.com")) && c.includes(_.pack.name)) {
+            c = c.replace(/(\d+\.\d+\.\d+)/, _.pack.version)
+        }
+        return c
+    }).join("\n")
+
+    _.pack = JSON.parse(stringifiedPack)
+
     let packages = await packageDependents(_.pack.name)
     console.log("Found dependents.");
     packages = packages || [];

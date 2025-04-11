@@ -215,3 +215,8 @@ md-to-pdf-less-margins () {
 
 # heroku autocomplete setup
 HEROKU_AC_BASH_SETUP_PATH=/Users/ionicabizau/Library/Caches/heroku/autocomplete/bash_setup && test -f $HEROKU_AC_BASH_SETUP_PATH && source $HEROKU_AC_BASH_SETUP_PATH;
+
+# Android development
+# https://reactnative.dev/docs/set-up-your-environment?os=macos&platform=android
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home
+export ANDROID_HOME=/Users/ionicabizau/Library/Android/sdk
